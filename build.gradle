@@ -4,11 +4,12 @@ plugins {
     id 'org.asciidoctor.convert' version '1.5.8'
     id 'java'
     id 'application'
+    id "com.heroku.sdk.heroku-gradle" version "2.0.0"
 }
-
+def jdkVer = 17
 group = 'com.binar'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = jdkVer
 
 configurations {
     compileOnly {
@@ -53,4 +54,14 @@ tasks.named('test') {
 tasks.named('asciidoctor') {
     inputs.dir snippetsDir
     dependsOn test
+}
+
+heroku {
+    appName = "sushi"
+    jdkVersion = jdkVer
+    processTypes(
+            web: "java \$JAVA_OPTS -jar build/libs/*.jar -Dserver.port=\$PORT \$JAR_OPTS"
+    )
+    includes = ["build/libs/*.jar"]
+    includeBuildDir = false
 }
