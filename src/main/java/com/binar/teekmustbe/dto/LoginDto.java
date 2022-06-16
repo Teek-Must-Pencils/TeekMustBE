@@ -11,8 +11,6 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Accessors(chain = true)// Untuk chaining
 public class LoginDto {
-
-
     @Email(message = "Email tidak valid!")
     @NotBlank(message = "Email harus diisi!")// Handling email yang tidak diisi atau kosong
     private String email;
@@ -20,5 +18,4 @@ public class LoginDto {
     private String password;
     @NotBlank(message = "Username harus diisi!")
     private String username;
-
 }

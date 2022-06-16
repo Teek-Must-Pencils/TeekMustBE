@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailsServiceImpl implements LoginService, UserDetailsService {
-
-
     public void saveUser(LoginDto loginDto) {
 
     }
