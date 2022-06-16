@@ -14,14 +14,12 @@ import java.util.Collection;
 @Getter
 @Accessors(chain = true)
 public class UserDetailsImpl implements UserDetails {
-
     private long id;
     private String email;
     @JsonIgnore
     private String password;
     private String username;
     private Collection<? extends GrantedAuthority> authorities;
-
 
     @Override
     public boolean isAccountNonExpired() {
