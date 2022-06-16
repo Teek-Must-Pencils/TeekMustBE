@@ -3,14 +3,18 @@ package com.binar.teekmustbe.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter
 @Getter
 @Accessors(chain = true)// Untuk chaining
-public class LoginDto {
+public class UserSignupDto {
     @Email(message = "Email tidak valid!")
     @NotBlank(message = "Email harus diisi!")// Handling email yang tidak diisi atau kosong
     private String email;
@@ -18,4 +22,12 @@ public class LoginDto {
     private String password;
     @NotBlank(message = "Username harus diisi!")
     private String username;
+    @NotBlank(message = "Alamat harus diisi!")
+    private String address;
+    @NotBlank(message = "telpon harus diisi!")
+    private String number;
+    @NotNull
+    private MultipartFile img;
+
+    private Set<String> roles = new HashSet<>();
 }
