@@ -5,12 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 
 @Setter
@@ -26,6 +25,20 @@ public class UserDetailsImpl implements UserDetails {
     private String number;
     private byte[] img;
     private Collection<? extends GrantedAuthority> authorities;
+
+    public UserDetailsImpl(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.address = user.getAddress();
+        this.number = user.getNumber();
+        this.authorities = user
+                .getRoles()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRole().name()))
+                .collect(Collectors.toList());
+    }
 
 
     @Override
