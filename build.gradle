@@ -69,6 +69,14 @@ heroku {
     processTypes(
             web: "java \$JAVA_OPTS -jar build/libs/*.jar -Dserver.port=\$PORT \$JAR_OPTS"
     )
-    includes = ["build/libs/*.jar"]
+    includes = ["build/libs/TeekMustBE-0.0.1-SNAPSHOT.jar"]
     includeBuildDir = false
+}
+
+task deploy {
+    dependsOn 'clean'
+    dependsOn 'bootJar'
+    dependsOn 'deployHeroku'
+    tasks.findByName('bootJar').mustRunAfter 'clean'
+    tasks.findByName('deployHeroku').mustRunAfter 'bootJar'
 }

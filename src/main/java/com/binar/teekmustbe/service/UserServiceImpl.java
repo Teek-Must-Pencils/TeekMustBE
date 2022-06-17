@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
             logger.info(roleService.findAll().toString());
             userSignupDto.getRoles().forEach(role -> user.getRoles().add(
                     roleService.findByRole(getEnumIgnoreCase(Roles.class, role)).orElseThrow(() ->
-                            new RuntimeException("Error: No role " + role + " Found. Use Customer as default."))
+                            new RuntimeException("Error: No role " + role + " Found. Use `Buyer` as default."))
             ));
         }
         user.setPassword(userSignupDto.getPassword());
