@@ -18,10 +18,10 @@ import java.util.Collection;
 @Accessors(chain = true)
 public class UserDetailsImpl implements UserDetails {
     private long id;
-    private String email;
+    private String username;
     @JsonIgnore
     private String password;
-    private String username;
+    private String email;
     private String address;
     private String number;
     private byte[] img;

@@ -20,9 +20,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String email;
-    private String password;
     private String username;
+    private String password;
+    private String email;
     private String address;
     private String number;
     @Lob
