@@ -16,6 +16,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
@@ -39,11 +40,12 @@ public class JwtUtil {
     // generate token
     public String generateAccessToken(Authentication authentication) {
         var userDetails = (UserDetails) authentication.getPrincipal();
+        logger.info(String.valueOf(userDetails));
         var claims = new HashMap<String, Object>();
         userDetails
                 .getAuthorities()
                 .stream()
-                .map(GrantedAuthority::getAuthority).toList()
+                .map(GrantedAuthority::getAuthority).collect(Collectors.toList())
                 .forEach(claim -> claims.put("roles", claim));
         int jwtExpirationInMs = 18000000;
         return Jwts.builder()
