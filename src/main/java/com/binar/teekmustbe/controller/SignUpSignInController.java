@@ -44,8 +44,8 @@ public class SignUpSignInController {
 
 
     @Operation(summary = "Registers a new user")
-    @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@Valid @RequestBody UserSignupDto userSignupDto, @RequestParam("img") MultipartFile file) {
+    @PostMapping(value = "/signup")
+    public ResponseEntity<?> signUp(@Valid @RequestBody UserSignupDto userSignupDto, @RequestParam("img") MultipartFile img) {
         var response = new HashMap<String, String>();
         if (userService.existsUsername(userSignupDto.getUsername())) {
             response.put(userSignupDto.getUsername(), "Error: Username already used");
@@ -55,6 +55,7 @@ public class SignUpSignInController {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         userSignupDto.setPassword(passwordEncoder.encode(userSignupDto.getPassword()));
+        userSignupDto.setImg(img);
         userService.save(userSignupDto);
         return new ResponseEntity<>("User Registered", HttpStatus.CREATED);    }
 
