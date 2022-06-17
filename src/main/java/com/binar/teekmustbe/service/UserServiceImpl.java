@@ -1,5 +1,6 @@
 package com.binar.teekmustbe.service;
 
+import com.binar.teekmustbe.dto.UserDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
 import com.binar.teekmustbe.entitiy.User;
 import com.binar.teekmustbe.enums.Roles;
@@ -40,39 +41,52 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    public boolean update(UserSignupDto userSignupDto) {
+    public boolean update(UserDto userDto) {
+        if (userRepository.findById(userDto.getId()).isPresent()) {
+            userRepository.save(new User(userDto));
+            return true;
+        }
         return false;
     }
 
     public List<User> findAll() {
-        return null;
+        return userRepository.findAllByOrderByIdAsc();
     }
 
     public Optional<User> findById(long id) {
-        return Optional.empty();
+        return userRepository.findById(id);
     }
 
     public boolean delete(long id) {
+        if (userRepository.findById(id).isPresent()) {
+            userRepository.deleteById(id);
+            return true;
+        }
         return false;
     }
 
     public boolean deleteByUsername(String username) {
+        var user = userRepository.findByUsername(username);
+        if (user.isPresent()) {
+            userRepository.deleteById(user.get().getId());
+            return true;
+        }
         return false;
     }
 
     public Optional<User> findByUsername(String username) {
-        return Optional.empty();
+        return userRepository.findByUsername(username);
     }
 
     public Optional<User> findByEmail(String email) {
-        return Optional.empty();
+        return userRepository.findByEmail(email);
     }
 
     public boolean existsUsername(String username) {
-        return false;
+        return findByUsername(username).isPresent();
     }
 
     public boolean existsEmail(String email) {
-        return false;
+        return findByEmail(email).isPresent();
     }
 }

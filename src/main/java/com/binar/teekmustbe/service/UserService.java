@@ -1,5 +1,6 @@
 package com.binar.teekmustbe.service;
 
+import com.binar.teekmustbe.dto.UserDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
 import com.binar.teekmustbe.entitiy.User;
 
@@ -8,7 +9,7 @@ import java.util.Optional;
 
 public interface UserService {
     void save(UserSignupDto userSignupDto);
-    boolean update(UserSignupDto userSignupDto);
+    boolean update(UserDto userDto);
     List<User> findAll();
     Optional<User> findById(long id);
     boolean delete(long id);
