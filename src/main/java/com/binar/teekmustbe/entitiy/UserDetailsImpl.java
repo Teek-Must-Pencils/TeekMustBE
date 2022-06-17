@@ -19,9 +19,9 @@ import java.util.Collection;
 public class UserDetailsImpl implements UserDetails {
     private long id;
     private String username;
-    private String email;
     @JsonIgnore
     private String password;
+    private String email;
     private String address;
     private String number;
     private byte[] img;

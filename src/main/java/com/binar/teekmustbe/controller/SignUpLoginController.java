@@ -6,11 +6,14 @@ import com.binar.teekmustbe.dto.UserLoginDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
 import com.binar.teekmustbe.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,8 +29,8 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/api/auth")
 @SecurityRequirement(name = "Authorization")
-public class SignUpSignInController {
-    private static final Logger logger = LoggerFactory.getLogger(SignUpSignInController.class);
+public class SignUpLoginController {
+    private static final Logger logger = LoggerFactory.getLogger(SignUpLoginController.class);
 
     @Autowired
     private UserService userService;
@@ -42,10 +45,11 @@ public class SignUpSignInController {
     private JwtUtil jwtUtil;
 
 
-
     @Operation(summary = "Registers a new user")
-    @PostMapping(value = "/signup")
-    public ResponseEntity<?> signUp(@Valid @RequestBody UserSignupDto userSignupDto, @RequestParam("img") MultipartFile img) {
+    @PostMapping(value = "/signup", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> signUp(
+            UserSignupDto userSignupDto,
+            @ModelAttribute MultipartFile img) {
         var response = new HashMap<String, String>();
         if (userService.existsUsername(userSignupDto.getUsername())) {
             response.put(userSignupDto.getUsername(), "Error: Username already used");
@@ -54,10 +58,12 @@ public class SignUpSignInController {
             response.put(userSignupDto.getUsername(), "Error: Email already used");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
+        logger.info(userSignupDto.toString());
         userSignupDto.setPassword(passwordEncoder.encode(userSignupDto.getPassword()));
         userSignupDto.setImg(img);
         userService.save(userSignupDto);
-        return new ResponseEntity<>("User Registered", HttpStatus.CREATED);    }
+        return new ResponseEntity<>("User Registered", HttpStatus.CREATED);
+    }
 
     @Operation(summary = "Login user")
     @PostMapping("/login")
