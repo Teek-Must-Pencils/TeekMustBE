@@ -63,7 +63,7 @@ tasks.named('asciidoctor') {
 }
 
 heroku {
-    appName = "sushi"
+    appName = "teek-must-be"
     jdkVersion = jdkVer
     processTypes(
             web: "java \$JAVA_OPTS -jar build/libs/*.jar -Dserver.port=\$PORT \$JAR_OPTS"
