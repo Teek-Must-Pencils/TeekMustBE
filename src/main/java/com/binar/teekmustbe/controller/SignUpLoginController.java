@@ -69,7 +69,7 @@ public class SignUpLoginController {
 
     @Operation(summary = "Login user")
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody UserLoginDto credential) {
+    public ResponseEntity<JwtTokenDto> login(@Valid @RequestBody UserLoginDto credential) {
         logger.info("logging in");
         var authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(credential.getUsername(), credential.getPassword())
