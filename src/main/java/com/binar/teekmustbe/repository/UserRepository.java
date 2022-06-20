@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllByOrderByIdAsc();
 
+    // Optional, untuk cari satu value
     Optional<User> findByUsername(String username);
 
     Optional<User> findByEmail(String email);
