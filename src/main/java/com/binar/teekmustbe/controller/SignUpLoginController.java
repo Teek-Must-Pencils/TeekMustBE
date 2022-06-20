@@ -4,6 +4,7 @@ import com.binar.teekmustbe.config.JwtUtil;
 import com.binar.teekmustbe.dto.JwtTokenDto;
 import com.binar.teekmustbe.dto.UserLoginDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
+import com.binar.teekmustbe.entitiy.User;
 import com.binar.teekmustbe.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -78,6 +80,9 @@ public class SignUpLoginController {
         var userDetails = (UserDetails) authentication.getPrincipal();
         logger.info("User " + userDetails.getUsername() + " logged in.");
         logger.info(token);
-        return ResponseEntity.ok(new JwtTokenDto(token));
+        var user = userService.findByUsername(userDetails.getUsername());
+        return ResponseEntity.ok(new JwtTokenDto(token, user.orElseThrow()));
     }
+
+
 }
