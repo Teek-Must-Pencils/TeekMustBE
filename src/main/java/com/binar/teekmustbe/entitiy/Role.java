@@ -3,6 +3,7 @@ package com.binar.teekmustbe.entitiy;
 import com.binar.teekmustbe.enums.Roles;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Accessors(chain = true)
+@ToString
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
