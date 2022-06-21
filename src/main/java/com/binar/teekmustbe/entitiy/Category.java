@@ -17,14 +17,14 @@ public class Category {
     private long id;
 
     @Enumerated(EnumType.STRING)
-    private Categories categories;
+    private Categories category;
 
     public Category() {
 
     }
 
-    public Category(Categories categories) {
-        this.categories = categories;
+    public Category(Categories category) {
+        this.category = category;
     }
 
 }
