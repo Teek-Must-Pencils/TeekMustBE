@@ -77,9 +77,11 @@ heroku {
 }
 
 task deploy {
+    dependsOn 'test'
     dependsOn 'clean'
     dependsOn 'bootJar'
     dependsOn 'deployHeroku'
+    tasks.findByName('clean').mustRunAfter 'test'
     tasks.findByName('bootJar').mustRunAfter 'clean'
     tasks.findByName('deployHeroku').mustRunAfter 'bootJar'
 }

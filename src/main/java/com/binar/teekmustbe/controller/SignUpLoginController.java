@@ -4,11 +4,8 @@ import com.binar.teekmustbe.config.JwtUtil;
 import com.binar.teekmustbe.dto.JwtTokenDto;
 import com.binar.teekmustbe.dto.UserLoginDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
-import com.binar.teekmustbe.entitiy.User;
 import com.binar.teekmustbe.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
 @SecurityRequirement(name = "Authorization")
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 public class SignUpLoginController {
     private static final Logger logger = LoggerFactory.getLogger(SignUpLoginController.class);
 

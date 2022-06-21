@@ -18,6 +18,7 @@ import org.springframework.mock.web.MockMultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
