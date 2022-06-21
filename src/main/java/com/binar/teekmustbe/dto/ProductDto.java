@@ -7,18 +7,23 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter
 @Getter
 @ToString
 @Accessors(chain = true)
 public class ProductDto {
+    @NotBlank
+    private long id;
     @NotNull
     private String productName;
     @NotNull
-    private String category;
+    private Set<String> categories = new HashSet<>();
     @NotNull
     private BigDecimal price;
     @NotNull
@@ -30,6 +35,7 @@ public class ProductDto {
     private String seller;
     @NotNull
     private String city;
+
 
 
 }
