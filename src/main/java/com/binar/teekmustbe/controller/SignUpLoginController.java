@@ -66,19 +66,25 @@ public class SignUpLoginController {
 
     @Operation(summary = "Login user")
     @PostMapping("/login")
-    public ResponseEntity<JwtTokenDto> login(@Valid @RequestBody UserLoginDto credential) {
+    public ResponseEntity<?> login(@Valid @RequestBody UserLoginDto credential) {
         logger.info("logging in");
         var authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(credential.getUsername(), credential.getPassword())
         );
-
+        if (!authentication.isAuthenticated()) {
+            return new ResponseEntity<>("User or password incorrect", HttpStatus.FORBIDDEN);
+        }
         SecurityContextHolder.getContext().setAuthentication(authentication);
         var token = jwtUtil.generateAccessToken(authentication);
         var userDetails = (UserDetails) authentication.getPrincipal();
         logger.info("User " + userDetails.getUsername() + " logged in.");
         logger.info(token);
         var user = userService.findByUsername(userDetails.getUsername());
-        return ResponseEntity.ok(new JwtTokenDto(token, user.orElseThrow()));
+
+        if (user.isEmpty()) {
+            return new ResponseEntity<>("User or password incorrect", HttpStatus.FORBIDDEN);
+        }
+        return ResponseEntity.ok(new JwtTokenDto(token, user.get()));
     }
 
 

@@ -1,6 +1,7 @@
 package com.binar.teekmustbe;
 
 import com.binar.teekmustbe.controller.SignUpLoginController;
+import com.binar.teekmustbe.dto.JwtTokenDto;
 import com.binar.teekmustbe.dto.UserLoginDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
 import org.junit.jupiter.api.Test;
@@ -50,11 +51,10 @@ public class SignUpLoginTest {
         var response = signUpLoginController.login(new UserLoginDto()
                 .setUsername("testuser")
                 .setPassword("password"));
-        assertEquals("testuser", response.getBody().getUsername());
-        assertEquals("test@test.com", response.getBody().getEmail());
-        logger.info(response.getBody().getRole());
-        assertEquals("[buyer]", response.getBody().getRole());
-        assertNotEquals(null, response.getBody().getAccessToken());
+        assertEquals("testuser", ((JwtTokenDto)response.getBody()).getUsername());
+        assertEquals("test@test.com", ((JwtTokenDto)response.getBody()).getEmail());
+        assertEquals("[buyer]", ((JwtTokenDto)response.getBody()).getRole());
+        assertNotEquals(null, ((JwtTokenDto)response.getBody()).getAccessToken());
 
     }
 }
