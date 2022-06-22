@@ -27,7 +27,7 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/api/auth")
 @SecurityRequirement(name = "Authorization")
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:3000", "https://pencil-store-by-teemust.herokuapp.com/login"}, maxAge = 3600)
 public class SignUpLoginController {
     private static final Logger logger = LoggerFactory.getLogger(SignUpLoginController.class);
 
@@ -46,9 +46,7 @@ public class SignUpLoginController {
 
     @Operation(summary = "Registers a new user")
     @PostMapping(value = "/signup", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> signUp(
-            UserSignupDto userSignupDto,
-            @ModelAttribute MultipartFile img) {
+    public ResponseEntity<?> signUp(UserSignupDto userSignupDto, @ModelAttribute MultipartFile img) {
         var response = new HashMap<String, String>();
         if (userService.existsUsername(userSignupDto.getUsername())) {
             response.put(userSignupDto.getUsername(), "Error: Username already used");
@@ -68,9 +66,7 @@ public class SignUpLoginController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody UserLoginDto credential) {
         logger.info("logging in");
-        var authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(credential.getUsername(), credential.getPassword())
-        );
+        var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credential.getUsername(), credential.getPassword()));
         if (!authentication.isAuthenticated()) {
             return new ResponseEntity<>("User or password incorrect", HttpStatus.FORBIDDEN);
         }
