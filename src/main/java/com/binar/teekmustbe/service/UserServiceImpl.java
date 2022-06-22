@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
     private RoleService roleService;
 
     public void save(UserSignupDto userSignupDto) {
+        //
         var user = new User(userSignupDto);
         if (userSignupDto.getRoles().isEmpty()) {
             user.getRoles().add(
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService {
             logger.info(roleService.findAll().toString());
             userSignupDto.getRoles().forEach(role -> user.getRoles().add(
                     roleService.findByRole(getEnumIgnoreCase(Roles.class, role)).orElseThrow(() ->
-                            new RuntimeException("Error: No role " + role + " Found. Use `Buyer` as default."))
+                            new RuntimeException("Error: No role '" + role + "' Found. Use `Buyer` as default."))
             ));
         }
         user.setPassword(userSignupDto.getPassword());
