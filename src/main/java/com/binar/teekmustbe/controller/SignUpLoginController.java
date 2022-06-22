@@ -27,7 +27,7 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/api/auth")
 @SecurityRequirement(name = "Authorization")
-@CrossOrigin(origins = {"http://localhost:3000", "https://pencil-store-by-teemust.herokuapp.com/login"}, maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:3000", "https://pencil-store-by-teemust.herokuapp.com"}, maxAge = 3600)
 public class SignUpLoginController {
     private static final Logger logger = LoggerFactory.getLogger(SignUpLoginController.class);
 
