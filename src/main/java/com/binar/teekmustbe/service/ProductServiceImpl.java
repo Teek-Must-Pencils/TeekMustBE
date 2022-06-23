@@ -2,7 +2,6 @@ package com.binar.teekmustbe.service;
 
 import com.binar.teekmustbe.dto.ProductDto;
 import com.binar.teekmustbe.entitiy.Product;
-import com.binar.teekmustbe.entitiy.User;
 import com.binar.teekmustbe.enums.Categories;
 import com.binar.teekmustbe.repository.ProductRepository;
 import org.slf4j.Logger;
@@ -11,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import static org.apache.commons.lang3.EnumUtils.getEnumIgnoreCase;
 

@@ -20,7 +20,7 @@ public class PopulateRolesConfig {
     public void prerun() {
         for (var role : Roles.values()) {
             var dbRole = roleService.findByRole(role);
-            if (dbRole.isEmpty()) {
+                if (!dbRole.isPresent()) {
                 logger.info("Role " + role.name() + " is not found, inserting to DB . . .");
                 var role1 = new Role();
                 role1.setRole(role);
