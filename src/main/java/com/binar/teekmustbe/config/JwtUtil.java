@@ -59,6 +59,7 @@ public class JwtUtil {
 
     public Optional<String> parseJwt(HttpServletRequest request) {
         String authHeader = request.getHeader(AUTHORIZATION);
+        logger.info(authHeader);
         if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
             return Optional.of(authHeader.substring("Bearer ".length()));
         }

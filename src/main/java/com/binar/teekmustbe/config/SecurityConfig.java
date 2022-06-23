@@ -4,6 +4,7 @@ import com.binar.teekmustbe.enums.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -36,7 +37,8 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/films").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/product/**").hasAuthority(Roles.SELLER.name())
+                .antMatchers(HttpMethod.GET, "/api/product/**").permitAll()
                 .antMatchers("/api/seller/**").hasAuthority(Roles.SELLER.name())
                 .antMatchers("/api/buyer/**").hasAuthority(Roles.BUYER.name())
                 .anyRequest().authenticated();
