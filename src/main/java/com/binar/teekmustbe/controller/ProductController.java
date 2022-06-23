@@ -17,7 +17,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     @Operation(summary = "Add new product")
-    @PostMapping(value = "/product", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> addProduct(ProductDto productDto, @ModelAttribute MultipartFile img) {
         productDto.setImg(img);
         productService.save(productDto);

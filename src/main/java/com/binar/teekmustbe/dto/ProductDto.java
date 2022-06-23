@@ -18,7 +18,6 @@ import java.util.Set;
 @ToString
 @Accessors(chain = true)
 public class ProductDto {
-    @NotBlank
     private long id;
     @NotNull
     private String productName;
