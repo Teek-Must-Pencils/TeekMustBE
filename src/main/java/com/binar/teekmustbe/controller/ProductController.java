@@ -35,7 +35,7 @@ public class ProductController {
     @Operation(summary = "Find product by name")
     @GetMapping("{productName}")
     public ResponseEntity<?> findByProductName(@Valid @PathVariable("productName") String productName) {
-        var product = productService.findByProductName(productName);
+        var product = productService.findByName(productName);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 

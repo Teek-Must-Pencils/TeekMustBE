@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.EnumUtils.getEnumIgnoreCase;
 
@@ -50,12 +51,15 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    public List<User> findAll() {
-        return userRepository.findAllByOrderByIdAsc();
+    public List<UserDto> findAll() {
+        return userRepository.findAllByOrderByIdAsc().stream().map(UserDto::new).collect(Collectors.toList());
     }
 
-    public Optional<User> findById(long id) {
-        return userRepository.findById(id);
+    public Optional<UserDto> findById(long id) {
+        if (userRepository.findById(id).isPresent()) {
+            return Optional.of(new UserDto(userRepository.findById(id).get()));
+        }
+        return Optional.empty();
     }
 
     public boolean delete(long id) {
@@ -75,12 +79,18 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public Optional<UserDto> findByUsername(String username) {
+        if (userRepository.findByUsername(username).isPresent()) {
+            return Optional.of(new UserDto(userRepository.findByUsername(username).get()));
+        }
+        return Optional.empty();
     }
 
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Optional<UserDto> findByEmail(String email) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            return Optional.of(new UserDto(userRepository.findByEmail(email).get()));
+        }
+        return Optional.empty();
     }
 
     public boolean existsUsername(String username) {

@@ -1,6 +1,7 @@
 package com.binar.teekmustbe.service;
 
 import com.binar.teekmustbe.dto.UserSignupDto;
+import com.binar.teekmustbe.entitiy.User;
 import com.binar.teekmustbe.entitiy.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User " + username + " not found.");
         } else {
             logger.info("Found user : " + username);
-            return new UserDetailsImpl(user.get());
+            return new UserDetailsImpl(new User(user.get()).setPassword(user.get().getPassword()));
         }
     }
 }

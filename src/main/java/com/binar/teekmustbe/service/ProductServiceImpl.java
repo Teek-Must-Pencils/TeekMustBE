@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 import static org.apache.commons.lang3.EnumUtils.getEnumIgnoreCase;
@@ -46,16 +47,16 @@ public class ProductServiceImpl implements ProductService {
         return false;
     }
 
-    public List<Product> findAll() {
-        return productRepository.findAllByOrderByIdAsc();
+    public List<ProductDto> findAll() {
+        return productRepository.findAllByOrderByIdAsc().stream().map(ProductDto::new).collect(Collectors.toList());
     }
 
-    public List<Product> findByProductName(String productName) {
-        return productRepository.findByProductName(productName);
+    public List<ProductDto> findByName(String name) {
+        return productRepository.findByName(name).stream().map(ProductDto::new).collect(Collectors.toList());
     }
 
-    public List<Product> findByCategory(Categories category) {
-        return productRepository.findByCategory(category);
+    public List<ProductDto> findByCategory(Categories category) {
+        return productRepository.findByCategory(category).stream().map(ProductDto::new).collect(Collectors.toList());
     }
 
     public boolean delete(long id) {
@@ -63,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
             productRepository.deleteById(id);
             return true;
         }
-        return false;// Fngsi ini apa
+        return false;
     }
 
 

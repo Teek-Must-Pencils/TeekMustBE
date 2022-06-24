@@ -4,6 +4,7 @@ import com.binar.teekmustbe.dto.UserDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +17,7 @@ import java.util.Set;
 @Setter
 @Getter
 @Table(name = "`user`")
+@Accessors(chain = true)
 public class User {
     private static final Logger logger = LoggerFactory.getLogger(User.class);
     @Id
@@ -53,10 +55,14 @@ public class User {
         username = userDto.getUsername();
         address = userDto.getAddress();
         number = userDto.getNumber();
-        try {
-            img = userDto.getImg().getBytes();
-        } catch (IOException ioException) {
-            logger.error(ioException.getMessage());
+        if (userDto != null) {
+            img = userDto.getImgB();
+        } else {
+            try {
+                img = userDto.getImg().getBytes();
+            } catch (IOException ioException) {
+                logger.error(ioException.getMessage());
+            }
         }
     }
 

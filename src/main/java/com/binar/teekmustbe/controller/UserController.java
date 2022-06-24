@@ -27,15 +27,15 @@ public class UserController {
     }
 
     @Operation(summary = "Find user by username")
-    @GetMapping("{userId}")
-    public ResponseEntity<?> email(@PathVariable("email") String email) {
+    @GetMapping("{email}")
+    public ResponseEntity<?> findByEmail(@PathVariable("email") String email) {
         var user = userService.findByEmail(email);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @Operation(summary = "Find user by email")
     @GetMapping("{username}")
-    public ResponseEntity<?> findByEmail(@PathVariable("username") String username) {
+    public ResponseEntity<?> findByUsername(@PathVariable("username") String username) {
         var user = userService.findByUsername(username);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

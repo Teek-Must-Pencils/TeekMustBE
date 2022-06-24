@@ -20,12 +20,11 @@ public class JwtTokenDto {
     private String email;
     private String role;
 
-    public JwtTokenDto(String accessToken, User user) {
+    public JwtTokenDto(String accessToken, UserDto userDto) {
         this.accessToken = accessToken;
-        username = user.getUsername();
-        email = user.getEmail();
-        role = user.getRoles().stream().map(Role::getRole).map(Enum::name).map(String::toLowerCase).collect(Collectors.toList()).toString();
-
+        username = userDto.getUsername();
+        email = userDto.getEmail();
+        role = userDto.getRoles().stream().map(String::toLowerCase).collect(Collectors.toList()).toString();
     }
 
     public JwtTokenDto() {

@@ -1,15 +1,12 @@
 package com.binar.teekmustbe.entitiy;
 
 import com.binar.teekmustbe.dto.ProductDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -23,7 +20,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String productName;
+    private String name;
     private BigDecimal price;
     private String description;
     private String seller;
@@ -34,8 +31,7 @@ public class Product {
     private Set<Category> category = new HashSet<>();
 
     public Product(ProductDto productDto) {
-
-        productName = productDto.getProductName();
+        name = productDto.getName();
         price = productDto.getPrice();
         description = productDto.getDescription();
         seller= productDto.getSeller();
