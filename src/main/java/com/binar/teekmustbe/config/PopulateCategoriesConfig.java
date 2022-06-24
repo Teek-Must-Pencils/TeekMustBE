@@ -16,7 +16,7 @@ public class PopulateCategoriesConfig {
     private static final Logger logger = LoggerFactory.getLogger(PopulateCategoriesConfig.class);
 
     @Bean
-    public void prerun() {
+    public void populateCategories() {
         for (var category : Categories.values()) {
             var dbCategory = categoryService.findByCategory(category);
             if (!dbCategory.isPresent()) {

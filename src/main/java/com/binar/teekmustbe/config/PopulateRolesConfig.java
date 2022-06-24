@@ -17,7 +17,7 @@ public class PopulateRolesConfig {
     private static final Logger logger = LoggerFactory.getLogger(PopulateRolesConfig.class);
 
     @Bean
-    public void prerun() {
+    public void populateRoles() {
         for (var role : Roles.values()) {
             var dbRole = roleService.findByRole(role);
                 if (!dbRole.isPresent()) {
