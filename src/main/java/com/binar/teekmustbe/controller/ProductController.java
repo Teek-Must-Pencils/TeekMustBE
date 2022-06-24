@@ -26,7 +26,7 @@ public class ProductController {
 
     @Operation(summary = "Add new product")
     @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> addProduct(@Valid ProductDto productDto, @ModelAttribute MultipartFile img) {
+    public ResponseEntity<?> addProduct(ProductDto productDto, @ModelAttribute MultipartFile img) {
         productDto.setImg(img);
         productService.save(productDto);
         return new ResponseEntity<>("Product add", HttpStatus.CREATED);
