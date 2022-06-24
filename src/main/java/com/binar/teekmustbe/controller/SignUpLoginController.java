@@ -73,8 +73,6 @@ public class SignUpLoginController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         var token = jwtUtil.generateAccessToken(authentication);
         var userDetails = (UserDetails) authentication.getPrincipal();
-        logger.info("User " + userDetails.getUsername() + " logged in.");
-        logger.info(token);
         var user = userService.findByUsername(userDetails.getUsername());
 
         if (user.isEmpty()) {

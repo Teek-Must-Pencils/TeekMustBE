@@ -16,7 +16,6 @@ import java.util.Optional;
 @SecurityRequirement(name = "Authorization")
 @CrossOrigin(origins = {"http://localhost:3000", "https://pencil-store-by-teekmust.herokuapp.com/"}, maxAge = 3600)
 public class UserController {
-
     @Autowired
     private UserService userService;
 
