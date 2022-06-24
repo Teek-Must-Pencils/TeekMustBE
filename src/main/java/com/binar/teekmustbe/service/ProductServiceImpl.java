@@ -30,7 +30,6 @@ public class ProductServiceImpl implements ProductService {
                             new RuntimeException("Error: No category 'Pencil 2B' Found"))
             );
         } else {
-            logger.info(categoryService.findAll().toString());
             productDto.getCategories().forEach(category -> product.getCategory().add(
                     categoryService.findByCategory(getEnumIgnoreCase(Categories.class, category)).orElseThrow(() ->
                             new RuntimeException("Error: No category '" + category + "' Found. Use `Pencil 2B` as default."))

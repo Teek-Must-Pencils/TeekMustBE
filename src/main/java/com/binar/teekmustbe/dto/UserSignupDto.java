@@ -29,7 +29,6 @@ public class UserSignupDto {
     private String address;
     @NotBlank(message = "telpon harus diisi!")
     private String number;
-    @NotNull
     @JsonIgnore
     private MultipartFile img;
 

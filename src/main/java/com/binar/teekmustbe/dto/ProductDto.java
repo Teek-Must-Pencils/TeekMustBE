@@ -7,7 +7,6 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -25,7 +24,6 @@ public class ProductDto {
     private Set<String> categories = new HashSet<>();
     @NotNull
     private BigDecimal price;
-    @NotNull
     @JsonIgnore
     private MultipartFile img;
     @NotNull
