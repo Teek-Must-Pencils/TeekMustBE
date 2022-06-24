@@ -13,7 +13,8 @@ public interface UserService {
     void save(UserSignupDto userSignupDto);
 
     boolean update(UserDto userDto);
-    boolean update(ProfileDto profileDto) throws IOException;
+
+    boolean update(ProfileDto profileDto);
 
     List<UserDto> findAll();
 
