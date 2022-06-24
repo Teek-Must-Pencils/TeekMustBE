@@ -7,12 +7,15 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Setter
 @Getter
 @ToString
 @Accessors(chain = true)
 public class ProfileDto {
+    @NotNull
+    private long id;
     @JsonIgnore
     private MultipartFile img;
     @NotBlank(message = "Alamat harus diisi!")
