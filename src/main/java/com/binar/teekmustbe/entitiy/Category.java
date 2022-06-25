@@ -1,5 +1,6 @@
 package com.binar.teekmustbe.entitiy;
 
+import com.binar.teekmustbe.dto.CategoryDto;
 import com.binar.teekmustbe.enums.Categories;
 import lombok.Getter;
 import lombok.Setter;

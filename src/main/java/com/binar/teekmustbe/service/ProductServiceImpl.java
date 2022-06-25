@@ -1,6 +1,7 @@
 package com.binar.teekmustbe.service;
 
 import com.binar.teekmustbe.dto.ProductDto;
+import com.binar.teekmustbe.entitiy.Category;
 import com.binar.teekmustbe.entitiy.Product;
 import com.binar.teekmustbe.enums.Categories;
 import com.binar.teekmustbe.repository.ProductRepository;

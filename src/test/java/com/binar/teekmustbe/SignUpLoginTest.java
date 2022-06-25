@@ -20,6 +20,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -51,9 +52,9 @@ public class SignUpLoginTest {
         var response = signUpLoginController.login(new UserLoginDto()
                 .setUsername("testuser")
                 .setPassword("password"));
-        assertEquals("testuser", ((JwtTokenDto)response.getBody()).getUsername());
+        assertEquals("testuser", ((JwtTokenDto) Objects.requireNonNull(response.getBody())).getUsername());
         assertEquals("test@test.com", ((JwtTokenDto)response.getBody()).getEmail());
-        assertEquals("[buyer]", ((JwtTokenDto)response.getBody()).getRole());
+        assertEquals(Set.of("buyer"), ((JwtTokenDto)response.getBody()).getRoles());
         assertNotEquals(null, ((JwtTokenDto)response.getBody()).getAccessToken());
 
     }

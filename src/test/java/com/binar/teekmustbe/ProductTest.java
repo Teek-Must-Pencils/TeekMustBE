@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,7 +55,7 @@ public class ProductTest {
         productController.addProduct(product, product.getImg());
         var response = productController.findByProductName("Top Pencil");
         assertEquals(product.setImg(null),
-                ((List<ProductDto>) response.getBody()).get(0)
+                ((ProductDto) ((List<?>) Objects.requireNonNull(response.getBody())).get(0))
                         .setId(0)
                         .setImgB(null)
                         .setCategories(Set.of("pencil_2b")));
