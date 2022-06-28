@@ -52,6 +52,4 @@ public class ProductController {
         var product = productService.delete(id);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
-
-
 }
