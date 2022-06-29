@@ -26,14 +26,14 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @Operation(summary = "Find user by username")
+    @Operation(summary = "Find user by email")
     @GetMapping("{email}")
     public ResponseEntity<?> findByEmail(@PathVariable("email") String email) {
         var user = userService.findByEmail(email);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @Operation(summary = "Find user by email")
+    @Operation(summary = "Find user by username")
     @GetMapping("{username}")
     public ResponseEntity<?> findByUsername(@PathVariable("username") String username) {
         var user = userService.findByUsername(username);

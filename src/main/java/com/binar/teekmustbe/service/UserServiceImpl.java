@@ -55,16 +55,12 @@ public class UserServiceImpl implements UserService {
 
     public boolean update(ProfileDto profileDto) {
         if (findById(profileDto.getId()).isPresent()) {
-            try {
-                userRepository.save(findById(profileDto.getId()).get()
-                        .setAddress(profileDto.getAddress())
-                        .setNumber(profileDto.getNumber())
-                        .setImg(profileDto.getImg().getBytes()));
-                return true;
-            } catch (IOException e) {
-                logger.error(e.getMessage());
-                return false;
-            }
+            var user = findById(profileDto.getId()).get();
+            user.setAddress(profileDto.getAddress())
+                    .setNumber(profileDto.getNumber())
+                    .setImg(profileDto.getImg());
+            userRepository.save(new User(user).setId(profileDto.getId()));
+            return true;
         }
         return false;
     }
