@@ -35,7 +35,11 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/product/**").hasAuthority(Roles.SELLER.name())
+                .antMatchers(HttpMethod.PUT, "/api/product/**").hasAuthority(Roles.SELLER.name())
                 .antMatchers(HttpMethod.GET, "/api/product/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/product").hasAuthority(Roles.SELLER.name())
+                .antMatchers(HttpMethod.PUT, "/api/product").hasAuthority(Roles.SELLER.name())
+                .antMatchers(HttpMethod.GET, "/api/product").permitAll()
                 .antMatchers("/api/seller/**").hasAuthority(Roles.SELLER.name())
                 .antMatchers("/api/buyer/**").hasAuthority(Roles.BUYER.name())
                 .anyRequest().authenticated();
