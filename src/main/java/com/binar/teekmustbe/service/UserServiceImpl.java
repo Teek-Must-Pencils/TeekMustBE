@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     public boolean update(UserDto userDto) {
         if (userRepository.findById(userDto.getId()).isPresent()) {
-            userRepository.save(new User(userDto));
+            userRepository.save(new User(userDto).setId(userDto.getId()));
             return true;
         }
         return false;
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
             user.setAddress(profileDto.getAddress())
                     .setNumber(profileDto.getNumber())
                     .setImg(profileDto.getImg());
-            userRepository.save(new User(user).setId(profileDto.getId()));
+            update(user);
             return true;
         }
         return false;

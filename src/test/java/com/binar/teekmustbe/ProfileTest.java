@@ -1,6 +1,6 @@
 package com.binar.teekmustbe;
 
-import com.binar.teekmustbe.controller.ProfileController;
+import com.binar.teekmustbe.controller.UserProfileController;
 import com.binar.teekmustbe.controller.SignUpLoginController;
 import com.binar.teekmustbe.controller.UserController;
 import com.binar.teekmustbe.dto.*;
@@ -18,6 +18,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,7 +33,7 @@ public class ProfileTest {
     @Autowired
     private SignUpLoginController signUpLoginController;
     @Autowired
-    private ProfileController profileController;
+    private UserProfileController userProfileController;
     @Autowired
     private UserController userController;
 
@@ -50,7 +51,7 @@ public class ProfileTest {
                         "application/octet-stream",
                         new ClassPathResource("img/test_profile_photo.jpg")
                                 .getInputStream()));
-        profileController.update(new ProfileDto()
+        userProfileController.update(new ProfileDto()
                 .setAddress("tesAddress")
                 .setNumber("7654321"),
                 new MockMultipartFile("test_profile_photo",
@@ -59,8 +60,8 @@ public class ProfileTest {
                         new ClassPathResource("img/test_profile_photo.jpg")
                                 .getInputStream()));
         var response = userController.findByUsername("testuser");
-        assertEquals("tesAddress", ((UserDto) Objects.requireNonNull(response.getBody())).getAddress());
-        assertEquals("7654321", ((UserDto) Objects.requireNonNull(response.getBody())).getNumber());
+        assertEquals("tesAddress", ((Optional<UserDto>) Objects.requireNonNull(response.getBody())).get().getAddress());
+        assertEquals("7654321", ((Optional<UserDto>) Objects.requireNonNull(response.getBody())).get().getNumber());
 
     }
 }
