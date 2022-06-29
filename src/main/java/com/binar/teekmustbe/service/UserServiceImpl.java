@@ -59,8 +59,7 @@ public class UserServiceImpl implements UserService {
             user.setAddress(profileDto.getAddress())
                     .setNumber(profileDto.getNumber())
                     .setImg(profileDto.getImg());
-            update(user);
-            return true;
+            return update(user);
         }
         return false;
     }

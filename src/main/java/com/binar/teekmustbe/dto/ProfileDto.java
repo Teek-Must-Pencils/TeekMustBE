@@ -23,4 +23,13 @@ public class ProfileDto {
     @NotBlank(message = "telpon harus diisi!")
     private String number;
 
+    public ProfileDto() {
+    }
+
+    public ProfileDto(UserDto userDto) {
+        id = userDto.getId();
+        address = userDto.getAddress();
+        number = userDto.getNumber();
+    }
+
 }
