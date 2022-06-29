@@ -1,9 +1,11 @@
 package com.binar.teekmustbe.service;
 
+import com.binar.teekmustbe.dto.ProfileDto;
 import com.binar.teekmustbe.dto.UserDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
 import com.binar.teekmustbe.entitiy.User;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +13,8 @@ public interface UserService {
     void save(UserSignupDto userSignupDto);
 
     boolean update(UserDto userDto);
+
+    boolean update(ProfileDto profileDto);
 
     List<UserDto> findAll();
 

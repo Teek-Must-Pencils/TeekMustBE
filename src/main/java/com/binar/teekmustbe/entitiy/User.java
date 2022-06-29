@@ -1,5 +1,6 @@
 package com.binar.teekmustbe.entitiy;
 
+import com.binar.teekmustbe.dto.ProfileDto;
 import com.binar.teekmustbe.dto.UserDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
 import lombok.Getter;
@@ -66,4 +67,13 @@ public class User {
         }
     }
 
+    public User(ProfileDto profileDto){
+        address = profileDto.getAddress();
+        number = profileDto.getNumber();
+        try {
+            img = profileDto.getImg().getBytes();
+        } catch (IOException ioException) {
+            logger.error(ioException.getMessage());
+        }
+    }
 }

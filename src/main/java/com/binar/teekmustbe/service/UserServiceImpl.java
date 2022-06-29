@@ -1,5 +1,6 @@
 package com.binar.teekmustbe.service;
 
+import com.binar.teekmustbe.dto.ProfileDto;
 import com.binar.teekmustbe.dto.UserDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
 import com.binar.teekmustbe.entitiy.User;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,8 +47,19 @@ public class UserServiceImpl implements UserService {
 
     public boolean update(UserDto userDto) {
         if (userRepository.findById(userDto.getId()).isPresent()) {
-            userRepository.save(new User(userDto));
+            userRepository.save(new User(userDto).setId(userDto.getId()));
             return true;
+        }
+        return false;
+    }
+
+    public boolean update(ProfileDto profileDto) {
+        if (findById(profileDto.getId()).isPresent()) {
+            var user = findById(profileDto.getId()).get();
+            user.setAddress(profileDto.getAddress())
+                    .setNumber(profileDto.getNumber())
+                    .setImg(profileDto.getImg());
+            return update(user);
         }
         return false;
     }
