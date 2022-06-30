@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 
@@ -56,8 +57,9 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByName(name).stream().map(ProductDto::new).collect(Collectors.toList());
     }
 
-    public List<ProductDto> findByCategory(Categories category) {
-        return productRepository.findByCategory(category).stream().map(ProductDto::new).collect(Collectors.toList());
+    public List<ProductDto> findByCategory(String category) {
+        var category_ = categoryService.findByCategory(Categories.valueOf(category.toUpperCase()));
+        return productRepository.findByCategory(category_.get()).stream().map(ProductDto::new).collect(Collectors.toList());
     }
 
     public boolean delete(long id) {

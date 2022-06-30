@@ -12,7 +12,7 @@ public interface ProductService {
 
     List<ProductDto> findByName(String name);
 
-    List<ProductDto> findByCategory(Categories category);
+    List<ProductDto> findByCategory(String category);
 
     boolean delete(long id);
 
