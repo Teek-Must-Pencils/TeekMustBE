@@ -52,4 +52,11 @@ public class ProductController {
         var product = productService.delete(id);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
+
+    @Operation(summary = "Find by category")
+    @GetMapping("{category}")
+    public ResponseEntity<?> findByCategory(@Valid @PathVariable("category") String productCategory) {
+        var category = productService.findByCategory(productCategory);
+        return new ResponseEntity<>(category, HttpStatus.OK);
+    }
 }

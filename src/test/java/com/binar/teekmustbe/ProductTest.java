@@ -59,4 +59,39 @@ public class ProductTest {
                         .setCategories(Set.of("pencil_2b")));
     }
 
+    @Test
+    public void getByCategory() throws IOException{
+        var img = new MockMultipartFile("test_profile_photo",
+                "test_profile_photo.jpg",
+                "application/octet-stream",
+                new ClassPathResource("img/test_profile_photo.jpg")
+                        .getInputStream());
+        var product = new ProductDto()
+                .setId(0)
+                .setCategories(Set.of("pencil_2b"))
+                .setCity("test city")
+                .setDescription("Lorem ipsum")
+                .setPrice(BigDecimal.valueOf(34234))
+                .setName("Top Pencil")
+                .setSeller("Clerk")
+                .setImg(img);
+        productController.addProduct(product, product.getImg());
+
+        var product2 = new ProductDto()
+                .setId(0)
+                .setCategories(Set.of("color_pencil_8"))
+                .setCity("madiun")
+                .setDescription("baru")
+                .setPrice(BigDecimal.valueOf(35432))
+                .setName("Pencil Color")
+                .setSeller("Akmal")
+                .setImg(img);
+        productController.addProduct(product2, product2.getImg());
+        var response = productController.findByCategory("color_pencil_8");
+        assertEquals(product2.setImg(null),
+                ((ProductDto) ((List<?>) Objects.requireNonNull(response.getBody())).get(0))
+                        .setId(0)
+                        .setImgB(null)
+                        .setCategories(Set.of("color_pencil_8")));
+    }
 }
