@@ -5,6 +5,7 @@ import com.binar.teekmustbe.dto.UserDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import java.util.Set;
 @Getter
 @Table(name = "`user`")
 @Accessors(chain = true)
+@ToString
 public class User {
     private static final Logger logger = LoggerFactory.getLogger(User.class);
     @Id

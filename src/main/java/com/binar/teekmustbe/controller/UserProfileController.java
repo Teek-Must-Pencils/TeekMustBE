@@ -23,10 +23,10 @@ public class UserProfileController {
 
     @Operation(summary = "Update profile")
     @PutMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> update(@Valid ProfileDto profileDto, @ModelAttribute MultipartFile img) {
+    public ResponseEntity<?> update(ProfileDto profileDto, @ModelAttribute MultipartFile img) {
         profileDto.setImg(img);
         if (userService.update(profileDto)){
-            return new ResponseEntity<>("Id Not Found", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Id Not Found", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

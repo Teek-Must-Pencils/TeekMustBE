@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
     public boolean update(UserDto userDto) {
         if (userRepository.findById(userDto.getId()).isPresent()) {
             userRepository.save(new User(userDto).setId(userDto.getId()));
+            logger.info(new User(userDto).setId(userDto.getId()).toString());
             return true;
         }
         return false;
