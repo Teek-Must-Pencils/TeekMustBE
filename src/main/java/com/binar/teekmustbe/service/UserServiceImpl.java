@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
                             new RuntimeException("Error: No role Buyer Found"))
             );
         } else {
-            logger.info(roleService.findAll().toString());
             userSignupDto.getRoles().forEach(role -> user.getRoles().add(
                     roleService.findByRole(getEnumIgnoreCase(Roles.class, role)).orElseThrow(() ->
                             new RuntimeException("Error: No role '" + role + "' Found. Use `Buyer` as default."))
@@ -47,8 +46,7 @@ public class UserServiceImpl implements UserService {
 
     public boolean update(UserDto userDto) {
         if (userRepository.findById(userDto.getId()).isPresent()) {
-            userRepository.save(new User(userDto).setId(userDto.getId()));
-            logger.info(new User(userDto).setId(userDto.getId()).toString());
+            userRepository.save(new User(userDto).setId(userDto.getId()).setPassword(userDto.getPassword()));
             return true;
         }
         return false;
@@ -95,6 +93,7 @@ public class UserServiceImpl implements UserService {
 
     public Optional<UserDto> findByUsername(String username) {
         if (userRepository.findByUsername(username).isPresent()) {
+//            logger.info(userRepository.findByUsername(username).get().getPassword());
             return Optional.of(new UserDto(userRepository.findByUsername(username).get()));
         }
         return Optional.empty();

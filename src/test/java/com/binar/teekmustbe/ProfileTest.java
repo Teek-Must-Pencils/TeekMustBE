@@ -26,6 +26,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -67,6 +68,7 @@ public class ProfileTest {
         var response = userController.findByUsername("testuser");
         assertEquals("tesAddress", ((Optional<UserDto>) Objects.requireNonNull(response.getBody())).get().getAddress());
         assertEquals("7654321", ((Optional<UserDto>) Objects.requireNonNull(response.getBody())).get().getNumber());
+        assertNotNull(((Optional<UserDto>) Objects.requireNonNull(response.getBody())).get().getPassword());
 
     }
 }
