@@ -26,9 +26,9 @@ public class UserProfileController {
     public ResponseEntity<?> update(ProfileDto profileDto, @ModelAttribute MultipartFile img) {
         profileDto.setImg(img);
         if (userService.update(profileDto)){
-            return new ResponseEntity<>("Id Not Found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Id Not Found", HttpStatus.NOT_FOUND);
     }
 }
 
