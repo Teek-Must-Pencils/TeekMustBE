@@ -20,7 +20,7 @@ public class JwtTokenDto {
         this.accessToken = accessToken;
         username = userDto.getUsername();
         email = userDto.getEmail();
-        roles = userDto.getRoles();
+        roles = userDto.getRoles().stream().map(String::toLowerCase).collect(Collectors.toSet());
     }
 
     public JwtTokenDto() {
