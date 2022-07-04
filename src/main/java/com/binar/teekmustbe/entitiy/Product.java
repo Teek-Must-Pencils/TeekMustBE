@@ -8,8 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -26,7 +24,8 @@ public class Product {
     private String name;
     private BigDecimal price;
     private String description;
-    private String seller;
+    @OneToOne
+    private User seller;
     private String city;
     @Lob
 //    @JsonIgnore
@@ -34,11 +33,12 @@ public class Product {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Category> category = new HashSet<>();
 
-    public Product(ProductDto productDto) {
+
+    public Product(ProductDto productDto, User seller) {
         name = productDto.getName();
         price = productDto.getPrice();
         description = productDto.getDescription();
-        seller= productDto.getSeller();
+        this.seller = seller;
         city = productDto.getCity();
         try {
             img = productDto.getImg().getBytes();

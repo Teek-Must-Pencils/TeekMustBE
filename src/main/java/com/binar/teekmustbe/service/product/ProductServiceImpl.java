@@ -1,18 +1,19 @@
-package com.binar.teekmustbe.service.product;
+package com.binar.teekmustbe.service;
 
 import com.binar.teekmustbe.dto.ProductDto;
 
 import com.binar.teekmustbe.entitiy.Product;
-import com.binar.teekmustbe.enums.Categories;;
+import com.binar.teekmustbe.enums.Categories;
+import com.binar.teekmustbe.entitiy.User;
 import com.binar.teekmustbe.repository.ProductRepository;
-import com.binar.teekmustbe.service.user.UserServiceImpl;
-import com.binar.teekmustbe.service.category.CategoryService;
+import com.binar.teekmustbe.service.UserService;
+import com.binar.teekmustbe.service.ProductService;
+import com.binar.teekmustbe.service.CategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,10 +28,12 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     @Autowired
     private CategoryService categoryService;
-
+    @Autowired
+    private UserService userService;
 
     public void save(ProductDto productDto) {
-        var product = new Product(productDto);
+        var userDto = userService.findByUsername(productDto.getSeller()).get();
+        var product = new Product(productDto, new User(userDto).setId(userDto.getId()).setPassword(userDto.getPassword()));
         if (productDto.getCategories().isEmpty()) {
             product.getCategory().add(
                     categoryService.findByCategory(Categories.PENCIL_2B).orElseThrow(() ->
@@ -47,7 +50,9 @@ public class ProductServiceImpl implements ProductService {
 
     public boolean update(ProductDto productDto) {
         if (productRepository.findById(productDto.getId()).isPresent()) {
-            productRepository.save(new Product(productDto));
+            var userDto = userService.findByUsername(productDto.getSeller()).get();
+            var product = new Product(productDto, new User(userDto).setId(userDto.getId()).setPassword(userDto.getPassword()));
+            productRepository.save(product);
             return true;
         }
         return false;
