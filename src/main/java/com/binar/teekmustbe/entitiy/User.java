@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import javax.persistence.*;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,8 +36,10 @@ public class User {
     private byte[] img;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
-    @OneToMany
-    private Product product;
+    @ManyToMany
+    private List<Product> product;
+    @OneToOne
+    private Order order;
 
     public User() {
 

@@ -24,8 +24,9 @@ public class Product {
     private String name;
     private BigDecimal price;
     private String description;
-    @OneToOne
-    private User seller;
+////    @OneToOne
+//    private User seller;
+    private String seller;
     private String city;
     @Lob
 //    @JsonIgnore
@@ -34,11 +35,12 @@ public class Product {
     private Set<Category> category = new HashSet<>();
 
 
-    public Product(ProductDto productDto, User seller) {
+    public Product(ProductDto productDto) {
         name = productDto.getName();
         price = productDto.getPrice();
         description = productDto.getDescription();
-        this.seller = seller;
+//        this.seller = seller;
+        seller = productDto.getSeller();
         city = productDto.getCity();
         try {
             img = productDto.getImg().getBytes();

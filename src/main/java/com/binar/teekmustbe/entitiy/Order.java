@@ -1,5 +1,7 @@
 package com.binar.teekmustbe.entitiy;
 
+import com.binar.teekmustbe.dto.OrderDto;
+import com.binar.teekmustbe.dto.UserSignupDto;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -9,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Setter
@@ -20,11 +23,26 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private BigDecimal price;
+    private List<Product> product;
     private BigDecimal lastOffer;
     private BigDecimal acceptedOffer;
     private Date date;
-    @OneToOne
-    private User buyer;
-    @OneToOne
-    private User seller;
+//    private String buyer;
+//    private String seller;
+
+    public Order() {
+
+    }
+
+    public Order(OrderDto orderDto) {
+        price = orderDto.getPrice();
+        this.product = product;
+        lastOffer = orderDto.getLastOffer();
+        acceptedOffer = orderDto.getAcceptedOffer();
+        date = orderDto.getDate();
+//        this.seller = seller;
+//        this.buyer = buyer;
+
+
+    }
 }
