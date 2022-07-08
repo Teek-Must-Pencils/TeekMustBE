@@ -1,16 +1,15 @@
-package com.binar.teekmustbe.service;
+package com.binar.teekmustbe.service.category;
 
 
 import com.binar.teekmustbe.dto.CategoryDto;
-import com.binar.teekmustbe.dto.UserDto;
 import com.binar.teekmustbe.entitiy.Category;
 
 import com.binar.teekmustbe.enums.Categories;
 import com.binar.teekmustbe.repository.CategoryRepository;
+import com.binar.teekmustbe.service.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;

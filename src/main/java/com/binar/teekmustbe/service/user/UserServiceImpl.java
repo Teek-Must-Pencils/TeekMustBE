@@ -1,4 +1,4 @@
-package com.binar.teekmustbe.service;
+package com.binar.teekmustbe.service.user;
 
 import com.binar.teekmustbe.dto.ProfileDto;
 import com.binar.teekmustbe.dto.UserDto;
@@ -6,12 +6,12 @@ import com.binar.teekmustbe.dto.UserSignupDto;
 import com.binar.teekmustbe.entitiy.User;
 import com.binar.teekmustbe.enums.Roles;
 import com.binar.teekmustbe.repository.UserRepository;
+import com.binar.teekmustbe.service.role.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

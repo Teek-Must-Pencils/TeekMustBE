@@ -1,4 +1,4 @@
-package com.binar.teekmustbe.service;
+package com.binar.teekmustbe.service.category;
 
 import com.binar.teekmustbe.dto.CategoryDto;
 import com.binar.teekmustbe.entitiy.Category;

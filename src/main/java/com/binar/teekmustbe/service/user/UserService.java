@@ -1,4 +1,4 @@
-package com.binar.teekmustbe.service;
+package com.binar.teekmustbe.service.user;
 
 import com.binar.teekmustbe.dto.ProfileDto;
 import com.binar.teekmustbe.dto.UserDto;

@@ -2,7 +2,7 @@ package com.binar.teekmustbe.config;
 
 import com.binar.teekmustbe.entitiy.Role;
 import com.binar.teekmustbe.enums.Roles;
-import com.binar.teekmustbe.service.RoleService;
+import com.binar.teekmustbe.service.role.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +29,4 @@ public class PopulateRolesConfig {
             }
         }
     }
-
 }

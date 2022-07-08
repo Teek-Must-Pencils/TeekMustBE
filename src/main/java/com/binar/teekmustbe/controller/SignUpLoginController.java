@@ -4,7 +4,7 @@ import com.binar.teekmustbe.config.JwtUtil;
 import com.binar.teekmustbe.dto.JwtTokenDto;
 import com.binar.teekmustbe.dto.UserLoginDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
-import com.binar.teekmustbe.service.UserService;
+import com.binar.teekmustbe.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
@@ -18,8 +18,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -76,7 +74,6 @@ public class SignUpLoginController {
         var token = jwtUtil.generateAccessToken(authentication);
         var userDetails = (UserDetails) authentication.getPrincipal();
         var user = userService.findByUsername(userDetails.getUsername());
-
         if (user.isEmpty()) {
             return new ResponseEntity<>("User or password incorrect", HttpStatus.FORBIDDEN);
         }

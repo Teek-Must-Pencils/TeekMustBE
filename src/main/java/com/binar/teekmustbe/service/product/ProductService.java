@@ -1,9 +1,9 @@
-package com.binar.teekmustbe.service;
+package com.binar.teekmustbe.service.product;
 
 import com.binar.teekmustbe.dto.ProductDto;
-import com.binar.teekmustbe.enums.Categories;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
     void save(ProductDto productDto);
@@ -17,4 +17,6 @@ public interface ProductService {
     boolean delete(long id);
 
     boolean update(ProductDto productDto);
+
+    Optional<ProductDto> findById(long id);
 }

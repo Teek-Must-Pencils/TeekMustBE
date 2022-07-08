@@ -1,8 +1,9 @@
-package com.binar.teekmustbe.service;
+package com.binar.teekmustbe.service.role;
 
 import com.binar.teekmustbe.entitiy.Role;
 import com.binar.teekmustbe.enums.Roles;
 import com.binar.teekmustbe.repository.RoleRepository;
+import com.binar.teekmustbe.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,6 @@ import java.util.Optional;
 public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleRepository roleRepository;
-
-    public RoleServiceImpl() {
-
-    }
 
     public Optional<Role> findByRole(Roles role) {
         return roleRepository.findByRole(role);

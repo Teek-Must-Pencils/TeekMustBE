@@ -1,6 +1,6 @@
 package com.binar.teekmustbe.controller;
 
-import com.binar.teekmustbe.service.CategoryService;
+import com.binar.teekmustbe.service.category.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
