@@ -1,10 +1,9 @@
 package com.binar.teekmustbe.controller;
 
 import com.binar.teekmustbe.dto.ProductDto;
-import com.binar.teekmustbe.entitiy.Product;
-import com.binar.teekmustbe.repository.ProductRepository;
+
 import com.binar.teekmustbe.service.product.ProductService;
-import com.binar.teekmustbe.service.product.ProductServices;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
@@ -27,8 +26,6 @@ public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     @Autowired
     private ProductService productService;
-    @Autowired
-    ProductServices productServices;
 
     @Operation(summary = "Add new product")
     @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -39,11 +36,10 @@ public class ProductController {
     }
 
     @Operation(summary = "Find product by name")
-    @GetMapping("/{productName}")
-    public ResponseEntity<?> findByProductName(@Valid @PathVariable("productName") String name) {
-        List<Product> product = productServices.findByNameNew(name);
-        System.out.println(product);
-        return new ResponseEntity<>( HttpStatus.OK);
+    @GetMapping("productName/{name}")
+    public ResponseEntity<?> findByProductName(@PathVariable("name") String name) {
+       var product = productService.findByName(name);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @Operation(summary = "List Product")
@@ -60,10 +56,10 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-//    @Operation(summary = "Find by category")
-//    @GetMapping("{category}")
-//    public ResponseEntity<?> findByCategory(@Valid @PathVariable("category") String productCategory) {
-//        var category = productService.findByCategory(productCategory);
-//        return new ResponseEntity<>(category, HttpStatus.OK);
-//    }
+    @Operation(summary = "Find by category")
+    @GetMapping("{category}")
+    public ResponseEntity<?> findByCategory(@Valid @PathVariable("category") String productCategory) {
+        var category = productService.findByCategory(productCategory);
+        return new ResponseEntity<>(category, HttpStatus.OK);
+    }
 }

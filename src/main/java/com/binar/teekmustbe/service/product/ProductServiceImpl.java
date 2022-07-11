@@ -1,9 +1,9 @@
 package com.binar.teekmustbe.service.product;
 
 import com.binar.teekmustbe.dto.ProductDto;
+
 import com.binar.teekmustbe.entitiy.Product;
-import com.binar.teekmustbe.enums.Categories;
-import com.binar.teekmustbe.repository.ProductRepo2;
+import com.binar.teekmustbe.enums.Categories;;
 import com.binar.teekmustbe.repository.ProductRepository;
 import com.binar.teekmustbe.service.user.UserServiceImpl;
 import com.binar.teekmustbe.service.category.CategoryService;
@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
         return false;
     }
 
-    @Override
+
     public Optional<ProductDto> findById(long id) {
         if (productRepository.findById(id).isPresent()) {
             return Optional.of(new ProductDto(productRepository.findById(id).get()));
@@ -65,13 +65,14 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAllByOrderByIdAsc().stream().map(ProductDto::new).collect(Collectors.toList());
     }
 
-//    public List<Product> getProductName(String productName) {
-//        List<Product> lsProduct = productRepository.findByName(productName);
-//        return lsProduct;
-//    }
 
-    public List<ProductDto> findByName(String name) {
-        return productRepository.findByName(name).stream().map(ProductDto::new).collect(Collectors.toList());
+
+    public Optional<ProductDto> findByName(String name) {
+        if (productRepository.findByName(name).isPresent()) {
+//            logger.info(userRepository.findByUsername(username).get().getPassword());
+            return Optional.of(new ProductDto(productRepository.findByName(name).get()));
+        }
+        return Optional.empty();
     }
 
     public List<ProductDto> findByCategory(String category) {

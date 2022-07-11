@@ -28,7 +28,7 @@ public class Product {
     private String description;
     private String seller;
     private String city;
-//    @Lob
+    @Lob
 //    @JsonIgnore
     private byte[] img;
     @ManyToMany(fetch = FetchType.EAGER)

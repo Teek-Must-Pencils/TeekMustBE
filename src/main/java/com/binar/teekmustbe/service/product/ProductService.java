@@ -10,7 +10,7 @@ public interface ProductService {
 
     List<ProductDto> findAll();
 
-    List<ProductDto> findByName(String name);
+    Optional<ProductDto> findByName(String name);
 
     List<ProductDto> findByCategory(String category);
 

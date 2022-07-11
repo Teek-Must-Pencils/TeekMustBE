@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -17,7 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByCategory(Categories category);
 
-    List<Product> findByName(String name);
+    Optional<Product> findByName(String name);
 
     List<Product> findByCategory(Category category);
 }
