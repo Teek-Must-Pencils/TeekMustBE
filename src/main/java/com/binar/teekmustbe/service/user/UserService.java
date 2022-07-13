@@ -32,4 +32,8 @@ public interface UserService {
 
     boolean existsEmail(String email);
 
+    User findUserByUsername (String username);
+
+    User findUserById (long id);
+
 }

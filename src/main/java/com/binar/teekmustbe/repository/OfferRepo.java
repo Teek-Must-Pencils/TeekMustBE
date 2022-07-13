@@ -10,4 +10,5 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface OfferRepo extends JpaRepository<Offer, Long> {
+
 }

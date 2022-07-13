@@ -30,12 +30,6 @@ public class OfferDto {
 
     private LocalDateTime createdAt;
 
-    public OfferDto(Offer offer) {
-        userId = offer.getUserId();
-        productId=offer.getProductId();
-        priceNegotiated = getPriceNegotiated();
-    }
-
     public OfferDto() {
 
     }

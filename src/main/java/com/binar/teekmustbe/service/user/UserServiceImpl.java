@@ -113,4 +113,12 @@ public class UserServiceImpl implements UserService {
     public boolean existsEmail(String email) {
         return findByEmail(email).isPresent();
     }
+
+    public User findUserByUsername (String username){
+        return userRepository.findUserByUsername(username);
+    }
+
+    public User findUserById(long id){
+        return userRepository.findUserById(id);
+    }
 }

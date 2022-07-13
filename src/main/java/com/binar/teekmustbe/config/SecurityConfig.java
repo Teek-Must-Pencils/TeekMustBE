@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/api/category/**").permitAll()
+                .antMatchers("/api/offer/**").permitAll()
 //                .antMatchers(HttpMethod.POST, "/api/wishlist/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/user/**").permitAll()

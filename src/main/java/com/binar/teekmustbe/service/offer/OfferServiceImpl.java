@@ -3,6 +3,8 @@ package com.binar.teekmustbe.service.offer;
 import com.binar.teekmustbe.dto.OfferDto;
 import com.binar.teekmustbe.entitiy.Offer;
 import com.binar.teekmustbe.entitiy.Product;
+import com.binar.teekmustbe.entitiy.User;
+import com.binar.teekmustbe.enums.StatusEnum;
 import com.binar.teekmustbe.repository.OfferRepo;
 import com.binar.teekmustbe.service.product.ProductService;
 import com.binar.teekmustbe.service.user.UserService;
@@ -21,13 +23,15 @@ public class OfferServiceImpl implements OfferService{
     @Autowired
     UserService userService;
 
-    public void save(OfferDto offerDto  ) {
-
+    public void save(long productId, Integer priceNegotiated, User user) {
+        var product = productService.findProductById(productId);
         var offer = new Offer();
-        offer.setUserId(offerDto.getUserId());
-        offer.setProductId(offerDto.getProductId());
-        offer.setCreatedAt(offerDto.getCreatedAt());
-        offer.setPriceNegotiated(offerDto.getPriceNegotiated());
+        offer.setUserId(user);
+        offer.setProductId(product);
+        offer.setPriceNegotiated(priceNegotiated);
+        offer.setStatus(StatusEnum.WAITING);
         offerRepo.save(offer);
     }
+
+
 }
