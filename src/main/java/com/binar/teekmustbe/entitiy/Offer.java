@@ -20,13 +20,11 @@ public class Offer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User userId;
+    @ManyToOne
+    private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id")
-    private Product productId;
+    @ManyToOne
+    private Product product;
 
     private BigDecimal priceNegotiated;
 
@@ -35,6 +33,4 @@ public class Offer {
 
     @Enumerated(EnumType.STRING)
     private StatusEnum status ;
-
-
 }

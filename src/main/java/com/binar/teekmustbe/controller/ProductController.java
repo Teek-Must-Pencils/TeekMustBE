@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -30,7 +29,7 @@ public class ProductController {
 
     @Operation(summary = "Add new product")
     @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> addProduct(ProductDto productDto, @ModelAttribute MultipartFile img) {
+    public ResponseEntity<?> saveProduct(ProductDto productDto, @ModelAttribute MultipartFile img) {
         productDto.setImg(img);
         productService.save(productDto);
         return new ResponseEntity<>("Product add", HttpStatus.CREATED);
@@ -39,7 +38,7 @@ public class ProductController {
     @Operation(summary = "Find product by name")
     @GetMapping("productName/{name}")
     public ResponseEntity<?> findByProductName(@PathVariable("name") String name) {
-       var products = productService.findByName(name);
+        var products = productService.findByName(name);
         return new ResponseEntity<>(products.stream().map(ProductDto::new).collect(Collectors.toList()), HttpStatus.OK);
     }
 

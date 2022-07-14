@@ -28,8 +28,8 @@ public class OfferServiceImpl implements OfferService{
     public void save(long productId, BigDecimal priceNegotiated, User user) {
         var product = productService.findProductById(productId);
         var offer = new Offer();
-        offer.setUserId(user);
-        offer.setProductId(product);
+        offer.setUser(user);
+        offer.setProduct(product);
         offer.setPriceNegotiated(priceNegotiated);
         offer.setStatus(StatusEnum.WAITING);
         offerRepo.save(offer);

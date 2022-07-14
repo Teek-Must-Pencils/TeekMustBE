@@ -4,18 +4,22 @@ import com.binar.teekmustbe.dto.ProductDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Setter
 @Getter
+@ToString
 public class Product {
     private static final Logger logger = LoggerFactory.getLogger(User.class);
     @Id
@@ -24,23 +28,19 @@ public class Product {
     private String name;
     private BigDecimal price;
     private String description;
-////    @OneToOne
-//    private User seller;
-    private String seller;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<User> users = new HashSet<>();
     private String city;
     @Lob
-//    @JsonIgnore
     private byte[] img;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Category> category = new HashSet<>();
 
-
-    public Product(ProductDto productDto) {
+    public Product(ProductDto productDto, User seller) {
         name = productDto.getName();
         price = productDto.getPrice();
         description = productDto.getDescription();
-//        this.seller = seller;
-        seller = productDto.getSeller();
+        users.add(seller);
         city = productDto.getCity();
         try {
             img = productDto.getImg().getBytes();
@@ -49,7 +49,7 @@ public class Product {
         }
     }
 
-    public Product(){
+    public Product() {
 
     }
 }

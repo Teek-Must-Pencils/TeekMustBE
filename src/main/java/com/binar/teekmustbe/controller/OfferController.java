@@ -9,12 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/offer")
@@ -37,8 +35,8 @@ public class OfferController {
             @PathVariable("id") long id,
             @PathVariable("productId") long productId) {
 
-        var user = userService.findUserById(id);
-        offerService.save(productId, priceNegotiated, user);
+        var user = userService.findById(id);
+        offerService.save(productId, priceNegotiated, user.get());
         return new ResponseEntity<>("offer add", HttpStatus.CREATED);
     }
 }

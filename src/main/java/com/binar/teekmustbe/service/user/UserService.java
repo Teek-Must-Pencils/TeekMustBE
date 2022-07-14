@@ -32,9 +32,4 @@ public interface UserService {
     boolean existsUsername(String username);
 
     boolean existsEmail(String email);
-
-    User findUserByUsername (String username);
-
-    User findUserById (long id);
-
 }

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import javax.persistence.*;
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private BigDecimal price;
-    private List<Product> product;
+    @ManyToMany
+    private List<Product> product = new ArrayList<>();
     private BigDecimal lastOffer;
     private BigDecimal acceptedOffer;
     private Date date;

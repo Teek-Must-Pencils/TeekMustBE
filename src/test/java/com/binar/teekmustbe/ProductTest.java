@@ -1,7 +1,9 @@
 package com.binar.teekmustbe;
 
 import com.binar.teekmustbe.controller.ProductController;
+import com.binar.teekmustbe.controller.SignUpLoginController;
 import com.binar.teekmustbe.dto.ProductDto;
+import com.binar.teekmustbe.dto.UserSignupDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +25,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @Transactional
@@ -30,9 +33,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(MockitoExtension.class)
 public class ProductTest {
     private static final Logger logger = LoggerFactory.getLogger(SignUpLoginTest.class);
-
     @Autowired
     private ProductController productController;
+    @Autowired
+    private SignUpLoginController signUpLoginController;
 
     @Test
     public void addProduct() throws IOException {
@@ -41,6 +45,14 @@ public class ProductTest {
                 "application/octet-stream",
                 new ClassPathResource("img/test_profile_photo.jpg")
                         .getInputStream());
+        signUpLoginController.signUp(new UserSignupDto()
+                        .setUsername("testseller")
+                        .setPassword("password")
+                        .setAddress("Test Ave.")
+                        .setEmail("test@test.com")
+                        .setRoles(Set.of("seller")),
+                img);
+
         var product = new ProductDto()
                 .setId(0)
                 .setCategories(Set.of("pencil_2b"))
@@ -48,9 +60,9 @@ public class ProductTest {
                 .setDescription("Lorem ipsum")
                 .setPrice(BigDecimal.valueOf(34234))
                 .setName("Top Pencil")
-                .setSeller("Clerk")
+                .setSeller("testseller")
                 .setImg(img);
-        productController.addProduct(product, product.getImg());
+        productController.saveProduct(product, product.getImg());
         var response = productController.findByProductName("Top Pencil");
         assertEquals(product.setImg(null),
                 ((ProductDto) ((List<?>) Objects.requireNonNull(response.getBody())).get(0))
@@ -60,12 +72,20 @@ public class ProductTest {
     }
 
     @Test
-    public void getByCategory() throws IOException{
+    public void getByCategory() throws IOException {
         var img = new MockMultipartFile("test_profile_photo",
                 "test_profile_photo.jpg",
                 "application/octet-stream",
                 new ClassPathResource("img/test_profile_photo.jpg")
                         .getInputStream());
+        signUpLoginController.signUp(new UserSignupDto()
+                        .setUsername("testseller")
+                        .setPassword("password")
+                        .setAddress("Test Ave.")
+                        .setEmail("test@test.com")
+                        .setRoles(Set.of("seller")),
+                img);
+
         var product = new ProductDto()
                 .setId(0)
                 .setCategories(Set.of("pencil_2b"))
@@ -73,9 +93,9 @@ public class ProductTest {
                 .setDescription("Lorem ipsum")
                 .setPrice(BigDecimal.valueOf(34234))
                 .setName("Top Pencil")
-                .setSeller("Clerk")
+                .setSeller("testseller")
                 .setImg(img);
-        productController.addProduct(product, product.getImg());
+        productController.saveProduct(product, product.getImg());
 
         var product2 = new ProductDto()
                 .setId(0)
@@ -84,9 +104,9 @@ public class ProductTest {
                 .setDescription("baru")
                 .setPrice(BigDecimal.valueOf(35432))
                 .setName("Pencil Color")
-                .setSeller("Akmal")
+                .setSeller("testseller")
                 .setImg(img);
-        productController.addProduct(product2, product2.getImg());
+        productController.saveProduct(product2, product2.getImg());
         var response = productController.findByCategory("color_pencil_8");
         assertEquals(product2.setImg(null),
                 ((ProductDto) ((List<?>) Objects.requireNonNull(response.getBody())).get(0))

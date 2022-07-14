@@ -2,8 +2,7 @@ package com.binar.teekmustbe.dto;
 
 import com.binar.teekmustbe.entitiy.Category;
 import com.binar.teekmustbe.entitiy.Product;
-import com.binar.teekmustbe.entitiy.Role;
-import com.binar.teekmustbe.enums.Categories;
+import com.binar.teekmustbe.enums.Roles;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -37,6 +36,7 @@ public class ProductDto {
     private String description;
     @NotNull
     private String seller;
+    private String buyer;
     @NotNull
     private String city;
     private byte[] imgB;
@@ -51,7 +51,13 @@ public class ProductDto {
         categories = product.getCategory().stream().map(Category::getCategory).map(Enum::name).collect(Collectors.toSet());
         price = product.getPrice();
         description = product.getDescription();
-        seller = product.getSeller().getUsername();
+        product.getUsers().forEach(u -> u.getRoles().forEach(v -> {
+            if (v.getRole().name().equals(Roles.SELLER.name())) {
+                seller = u.getUsername();
+            } else if (v.getRole().name().equals(Roles.BUYER.name())) {
+                buyer = u.getUsername();
+            }
+        }));
         city = product.getCity();
         imgB = product.getImg();
     }

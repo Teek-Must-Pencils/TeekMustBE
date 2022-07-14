@@ -36,8 +36,6 @@ public class User {
     private byte[] img;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
-    @ManyToMany
-    private List<Product> product;
     @OneToOne
     private Order order;
 

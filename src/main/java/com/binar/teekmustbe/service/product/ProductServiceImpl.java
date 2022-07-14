@@ -1,36 +1,36 @@
 package com.binar.teekmustbe.service.product;
 
 import com.binar.teekmustbe.dto.ProductDto;
-
 import com.binar.teekmustbe.entitiy.Product;
 import com.binar.teekmustbe.enums.Categories;
 import com.binar.teekmustbe.repository.ProductRepository;
-import com.binar.teekmustbe.service.user.UserServiceImpl;
 import com.binar.teekmustbe.service.category.CategoryService;
+import com.binar.teekmustbe.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 
 import static org.apache.commons.lang3.EnumUtils.getEnumIgnoreCase;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
     @Autowired
     private ProductRepository productRepository;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private UserService userService;
 
 
     public void save(ProductDto productDto) {
-        var product = new Product(productDto);
+        var seller = userService.findByUsername(productDto.getSeller());
+        assert seller.isPresent();
+        var product = new Product(productDto, seller.get());
         if (productDto.getCategories().isEmpty()) {
             product.getCategory().add(
                     categoryService.findByCategory(Categories.PENCIL_2B).orElseThrow(() ->
@@ -47,7 +47,8 @@ public class ProductServiceImpl implements ProductService {
 
     public boolean update(ProductDto productDto) {
         if (productRepository.findById(productDto.getId()).isPresent()) {
-            productRepository.save(new Product(productDto));
+            var seller = userService.findByUsername(productDto.getSeller());
+            productRepository.save(new Product(productDto, seller.get()));
             return true;
         }
         return false;
@@ -62,7 +63,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public List<Product> findAll() {
-//        return productRepository.findAllByOrderByIdAsc().stream().map(ProductDto::new).collect(Collectors.toList());
         return productRepository.findAllByOrderByIdAsc();
     }
 
