@@ -11,5 +11,5 @@ public interface RoleService {
 
     List<Role> findAll();
 
-    void save(Role role1);
+    void save(Role role);
 }

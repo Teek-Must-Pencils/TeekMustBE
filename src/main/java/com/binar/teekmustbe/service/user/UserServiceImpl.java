@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,24 +53,36 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    public boolean update(User user) {
+        if (userRepository.findById(user.getId()).isPresent()) {
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
     public boolean update(ProfileDto profileDto) {
         if (findById(profileDto.getId()).isPresent()) {
             var user = findById(profileDto.getId()).get();
-            user.setAddress(profileDto.getAddress())
-                    .setNumber(profileDto.getNumber())
-                    .setImg(profileDto.getImg());
+            try {
+                user.setAddress(profileDto.getAddress())
+                        .setNumber(profileDto.getNumber())
+                        .setImg(profileDto.getImg().getBytes());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             return update(user);
         }
         return false;
     }
 
-    public List<UserDto> findAll() {
-        return userRepository.findAllByOrderByIdAsc().stream().map(UserDto::new).collect(Collectors.toList());
+    public List<User> findAll() {
+        return userRepository.findAllByOrderByIdAsc();
     }
 
-    public Optional<UserDto> findById(long id) {
+    public Optional<User> findById(long id) {
         if (userRepository.findById(id).isPresent()) {
-            return Optional.of(new UserDto(userRepository.findById(id).get()));
+            return userRepository.findById(id);
         }
         return Optional.empty();
     }
@@ -91,17 +104,16 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    public Optional<UserDto> findByUsername(String username) {
+    public Optional<User> findByUsername(String username) {
         if (userRepository.findByUsername(username).isPresent()) {
-//            logger.info(userRepository.findByUsername(username).get().getPassword());
-            return Optional.of(new UserDto(userRepository.findByUsername(username).get()));
+            return userRepository.findByUsername(username);
         }
         return Optional.empty();
     }
 
-    public Optional<UserDto> findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         if (userRepository.findByEmail(email).isPresent()) {
-            return Optional.of(new UserDto(userRepository.findByEmail(email).get()));
+            return userRepository.findByEmail(email);
         }
         return Optional.empty();
     }

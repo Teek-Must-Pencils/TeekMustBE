@@ -32,7 +32,7 @@ public class CategoryTest {
             categories.add(new CategoryDto().setId(i++).setCategories(category.name().toLowerCase()));
         }
         var response = categoryController.findAll();
-        var responseCategories = (Set<CategoryDto>) Objects.requireNonNull(response.getBody());
+        var responseCategories = Objects.requireNonNull(response.getBody());
         assertEquals(categories, responseCategories);
     }
 }

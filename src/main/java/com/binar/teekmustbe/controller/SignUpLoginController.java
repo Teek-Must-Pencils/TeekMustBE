@@ -2,6 +2,7 @@ package com.binar.teekmustbe.controller;
 
 import com.binar.teekmustbe.config.JwtUtil;
 import com.binar.teekmustbe.dto.JwtTokenDto;
+import com.binar.teekmustbe.dto.UserDto;
 import com.binar.teekmustbe.dto.UserLoginDto;
 import com.binar.teekmustbe.dto.UserSignupDto;
 import com.binar.teekmustbe.service.user.UserService;
@@ -77,6 +78,6 @@ public class SignUpLoginController {
         if (user.isEmpty()) {
             return new ResponseEntity<>("User or password incorrect", HttpStatus.FORBIDDEN);
         }
-        return ResponseEntity.ok(new JwtTokenDto(token, user.get()));
+        return ResponseEntity.ok(new JwtTokenDto(token, new UserDto(user.get())));
     }
 }

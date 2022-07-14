@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/product")
@@ -38,28 +39,28 @@ public class ProductController {
     @Operation(summary = "Find product by name")
     @GetMapping("productName/{name}")
     public ResponseEntity<?> findByProductName(@PathVariable("name") String name) {
-       var product = productService.findByName(name);
-        return new ResponseEntity<>(product, HttpStatus.OK);
+       var products = productService.findByName(name);
+        return new ResponseEntity<>(products.stream().map(ProductDto::new).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @Operation(summary = "List Product")
     @GetMapping("products")
     public ResponseEntity<?> listProducts() {
         var products = productService.findAll();
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        return new ResponseEntity<>(products.stream().map(ProductDto::new).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @Operation(summary = "Delete Product")
     @DeleteMapping("delete/{id}")
     public ResponseEntity<?> delete(@Valid @PathVariable("id") long id) {
-        var product = productService.delete(id);
-        return new ResponseEntity<>(product, HttpStatus.OK);
+        var status = productService.delete(id);
+        return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
     @Operation(summary = "Find by category")
     @GetMapping("{category}")
     public ResponseEntity<?> findByCategory(@Valid @PathVariable("category") String productCategory) {
-        var category = productService.findByCategory(productCategory);
-        return new ResponseEntity<>(category, HttpStatus.OK);
+        var products = productService.findByCategory(productCategory);
+        return new ResponseEntity<>(products.stream().map(ProductDto::new).collect(Collectors.toList()), HttpStatus.OK);
     }
 }

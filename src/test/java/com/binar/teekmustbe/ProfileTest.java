@@ -45,6 +45,11 @@ public class ProfileTest {
 
     @Test
     public void profileTest() throws IOException {
+        var file = new MockMultipartFile("test_profile_photo",
+                "test_profile_photo.jpg",
+                "application/octet-stream",
+                new ClassPathResource("img/test_profile_photo.jpg")
+                        .getInputStream());
         signUpLoginController.signUp(new UserSignupDto()
                         .setUsername("testuser")
                         .setPassword("password")
@@ -52,23 +57,14 @@ public class ProfileTest {
                         .setEmail("test@test.com")
                         .setRoles(Set.of("buyer"))
                         .setNumber("1234567"),
-                new MockMultipartFile("test_profile_photo",
-                        "test_profile_photo.jpg",
-                        "application/octet-stream",
-                        new ClassPathResource("img/test_profile_photo.jpg")
-                                .getInputStream()));
-        userProfileController.update(new ProfileDto(((Optional<UserDto>) Objects.requireNonNull(userController.findByUsername("testuser").getBody())).get())
+                file);
+        userProfileController.update(new ProfileDto((UserDto) Objects.requireNonNull(userController.findByUsername("testuser").getBody()))
                 .setAddress("tesAddress")
-                .setNumber("7654321"),
-                new MockMultipartFile("test_profile_photo",
-                        "test_profile_photo.jpg",
-                        "application/octet-stream",
-                        new ClassPathResource("img/test_profile_photo.jpg")
-                                .getInputStream()));
+                .setNumber("7654321"), file);
         var response = userController.findByUsername("testuser");
-        assertEquals("tesAddress", ((Optional<UserDto>) Objects.requireNonNull(response.getBody())).get().getAddress());
-        assertEquals("7654321", ((Optional<UserDto>) Objects.requireNonNull(response.getBody())).get().getNumber());
-        assertNotNull(((Optional<UserDto>) Objects.requireNonNull(response.getBody())).get().getPassword());
+        assertEquals("tesAddress", ((UserDto) Objects.requireNonNull(response.getBody())).getAddress());
+        assertEquals("7654321", ((UserDto) Objects.requireNonNull(response.getBody())).getNumber());
+        assertNotNull(((UserDto) Objects.requireNonNull(response.getBody())).getPassword());
 
     }
 }

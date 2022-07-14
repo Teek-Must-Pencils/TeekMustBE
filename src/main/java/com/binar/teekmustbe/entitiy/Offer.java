@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +28,7 @@ public class Offer {
     @JoinColumn(name = "product_id")
     private Product productId;
 
-    private Integer priceNegotiated;
+    private BigDecimal priceNegotiated;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

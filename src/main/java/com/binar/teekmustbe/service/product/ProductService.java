@@ -9,17 +9,17 @@ import java.util.Optional;
 public interface ProductService {
     void save(ProductDto productDto);
 
-    List<ProductDto> findAll();
+    List<Product> findAll();
 
-    Optional<ProductDto> findByName(String name);
+    List<Product> findByName(String name);
 
-    List<ProductDto> findByCategory(String category);
+    List<Product> findByCategory(String category);
 
     boolean delete(long id);
 
     boolean update(ProductDto productDto);
 
-    Optional<ProductDto> findById(long id);
+    Optional<Product> findById(long id);
 
     Product findProductById(long id);
 

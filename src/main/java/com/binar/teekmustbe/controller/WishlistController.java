@@ -24,6 +24,6 @@ public class WishlistController {
     @PostMapping(value = "/")
     public ResponseEntity<?> addProduct(WishlistDto wishlistDto) {
         wishlistService.save(wishlistDto);
-        return new ResponseEntity<>("Wish list add", HttpStatus.CREATED);
+        return new ResponseEntity<>("Wishlist add", HttpStatus.CREATED);
     }
 }

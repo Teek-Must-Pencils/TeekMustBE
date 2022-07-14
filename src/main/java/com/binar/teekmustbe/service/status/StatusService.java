@@ -11,5 +11,5 @@ public interface StatusService {
 
     List<Status> findAll();
 
-    void save(Status status1);
+    void save(Status status);
 }

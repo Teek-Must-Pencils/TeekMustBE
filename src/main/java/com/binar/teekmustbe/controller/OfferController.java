@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 @RestController
@@ -29,15 +30,15 @@ public class OfferController {
 
     @Operation(summary = "Add new offer")
     @PostMapping("add/{productId}/{id}")
-        public ResponseEntity<?>addProduct(
+    public ResponseEntity<?> addProduct(
 //                @Schema(example = "{\n" + "  \"price\": \"250000\"\n" + "}")
 //                @RequestBody Map<Integer,Object> priceNegotiated,
-            @RequestParam Integer priceNegotiated,
-                                           @PathVariable("id")long id,
-                                           @PathVariable("productId")long productId) {
+            @RequestParam BigDecimal priceNegotiated,
+            @PathVariable("id") long id,
+            @PathVariable("productId") long productId) {
 
         var user = userService.findUserById(id);
-        offerService.save(productId,priceNegotiated,user);
+        offerService.save(productId, priceNegotiated, user);
         return new ResponseEntity<>("offer add", HttpStatus.CREATED);
     }
 }

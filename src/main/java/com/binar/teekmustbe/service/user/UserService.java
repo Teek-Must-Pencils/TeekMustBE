@@ -13,20 +13,21 @@ public interface UserService {
     void save(UserSignupDto userSignupDto);
 
     boolean update(UserDto userDto);
+    boolean update(User user);
 
     boolean update(ProfileDto profileDto);
 
-    List<UserDto> findAll();
+    List<User> findAll();
 
-    Optional<UserDto> findById(long id);
+    Optional<User> findById(long id);
 
     boolean delete(long id);
 
     boolean deleteByUsername(String username);
 
-    Optional<UserDto> findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
-    Optional<UserDto> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     boolean existsUsername(String username);
 

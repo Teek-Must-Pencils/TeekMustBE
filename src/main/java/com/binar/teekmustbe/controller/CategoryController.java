@@ -1,5 +1,6 @@
 package com.binar.teekmustbe.controller;
 
+import com.binar.teekmustbe.dto.CategoryDto;
 import com.binar.teekmustbe.service.category.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/api/category/")
 @SecurityRequirement(name = "Authorization")
@@ -20,7 +23,7 @@ public class CategoryController {
     private CategoryService categoryService;
     @Operation(summary = "List Categories")
     @GetMapping("products")
-    public ResponseEntity<?> findAll() {
+    public ResponseEntity<Set<CategoryDto>> findAll() {
         var categories = categoryService.findAll();
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
