@@ -35,6 +35,8 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/api/category/**").permitAll()
                 .antMatchers("/api/offer/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+
 //                .antMatchers(HttpMethod.POST, "/api/wishlist/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/user/**").permitAll()

@@ -17,7 +17,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/category/")
 @SecurityRequirement(name = "Authorization")
-@CrossOrigin(origins = {"http://localhost:3000", "https://pencil-store-by-teekmust.herokuapp.com/"}, maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:3000", "https://pencil-store-by-teekmust.herokuapp.com/","https://teek-must-store.vercel.app/"}, maxAge = 3600)
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;

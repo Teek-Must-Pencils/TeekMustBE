@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/user")
 @SecurityRequirement(name = "Authorization")
-@CrossOrigin(origins = {"http://localhost:3000", "https://pencil-store-by-teekmust.herokuapp.com/"}, maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:3000", "https://pencil-store-by-teekmust.herokuapp.com/","https://teek-must-store.vercel.app/"}, maxAge = 3600)
 public class UserController {
     @Autowired
     private UserService userService;
