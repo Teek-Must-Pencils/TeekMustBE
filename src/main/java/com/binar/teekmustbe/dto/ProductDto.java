@@ -51,7 +51,7 @@ public class ProductDto {
         categories = product.getCategory().stream().map(Category::getCategory).map(Enum::name).collect(Collectors.toSet());
         price = product.getPrice();
         description = product.getDescription();
-        seller = product.getSeller();
+        seller = product.getSeller().getUsername();
         city = product.getCity();
         imgB = product.getImg();
     }
