@@ -1,4 +1,4 @@
-package com.binar.teekmustbe.service;
+package com.binar.teekmustbe.service.role;
 
 import com.binar.teekmustbe.entitiy.Role;
 import com.binar.teekmustbe.enums.Roles;

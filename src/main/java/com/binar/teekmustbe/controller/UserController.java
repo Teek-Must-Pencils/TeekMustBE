@@ -1,15 +1,12 @@
 package com.binar.teekmustbe.controller;
 
-import com.binar.teekmustbe.entitiy.User;
-import com.binar.teekmustbe.service.UserService;
+import com.binar.teekmustbe.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
@@ -20,21 +17,21 @@ public class UserController {
     private UserService userService;
 
     @Operation(summary = "Find user by id")
-    @GetMapping("{id}")
+    @GetMapping("id/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") long id) {
         var user = userService.findById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @Operation(summary = "Find user by email")
-    @GetMapping("{email}")
+    @GetMapping("email/{email}")
     public ResponseEntity<?> findByEmail(@PathVariable("email") String email) {
         var user = userService.findByEmail(email);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @Operation(summary = "Find user by username")
-    @GetMapping("{username}")
+    @GetMapping("user/{username}")
     public ResponseEntity<?> findByUsername(@PathVariable("username") String username) {
         var user = userService.findByUsername(username);
         return new ResponseEntity<>(user, HttpStatus.OK);

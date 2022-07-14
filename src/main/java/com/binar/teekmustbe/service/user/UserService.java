@@ -1,4 +1,4 @@
-package com.binar.teekmustbe.service;
+package com.binar.teekmustbe.service.user;
 
 import com.binar.teekmustbe.dto.ProfileDto;
 import com.binar.teekmustbe.dto.UserDto;
@@ -31,5 +31,9 @@ public interface UserService {
     boolean existsUsername(String username);
 
     boolean existsEmail(String email);
+
+    User findUserByUsername (String username);
+
+    User findUserById (long id);
 
 }

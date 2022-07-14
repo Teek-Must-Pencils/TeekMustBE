@@ -1,17 +1,20 @@
-package com.binar.teekmustbe.service;
+package com.binar.teekmustbe.service.product;
 
 import com.binar.teekmustbe.dto.ProductDto;
-import com.binar.teekmustbe.entitiy.Category;
+
 import com.binar.teekmustbe.entitiy.Product;
-import com.binar.teekmustbe.enums.Categories;
+import com.binar.teekmustbe.enums.Categories;;
 import com.binar.teekmustbe.repository.ProductRepository;
+import com.binar.teekmustbe.service.user.UserServiceImpl;
+import com.binar.teekmustbe.service.category.CategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -24,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     @Autowired
     private CategoryService categoryService;
+
 
     public void save(ProductDto productDto) {
         var product = new Product(productDto);
@@ -49,12 +53,26 @@ public class ProductServiceImpl implements ProductService {
         return false;
     }
 
+
+    public Optional<ProductDto> findById(long id) {
+        if (productRepository.findById(id).isPresent()) {
+            return Optional.of(new ProductDto(productRepository.findById(id).get()));
+        }
+        return Optional.empty();
+    }
+
     public List<ProductDto> findAll() {
         return productRepository.findAllByOrderByIdAsc().stream().map(ProductDto::new).collect(Collectors.toList());
     }
 
-    public List<ProductDto> findByName(String name) {
-        return productRepository.findByName(name).stream().map(ProductDto::new).collect(Collectors.toList());
+
+
+    public Optional<ProductDto> findByName(String name) {
+        if (productRepository.findByName(name).isPresent()) {
+//            logger.info(userRepository.findByUsername(username).get().getPassword());
+            return Optional.of(new ProductDto(productRepository.findByName(name).get()));
+        }
+        return Optional.empty();
     }
 
     public List<ProductDto> findByCategory(String category) {
@@ -68,6 +86,10 @@ public class ProductServiceImpl implements ProductService {
             return true;
         }
         return false;
+    }
+
+    public Product findProductById (long id){
+        return productRepository.findProductById(id);
     }
 
 

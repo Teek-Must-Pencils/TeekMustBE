@@ -1,7 +1,7 @@
 package com.binar.teekmustbe.controller;
 
 import com.binar.teekmustbe.dto.ProfileDto;
-import com.binar.teekmustbe.service.UserService;
+import com.binar.teekmustbe.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/profile")

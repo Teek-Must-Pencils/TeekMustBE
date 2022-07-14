@@ -1,6 +1,6 @@
 package com.binar.teekmustbe.controller;
 
-import com.binar.teekmustbe.service.CategoryService;
+import com.binar.teekmustbe.service.category.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/category/")
 @SecurityRequirement(name = "Authorization")
 @CrossOrigin(origins = {"http://localhost:3000", "https://pencil-store-by-teekmust.herokuapp.com/"}, maxAge = 3600)
 public class CategoryController {

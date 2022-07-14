@@ -1,7 +1,9 @@
 package com.binar.teekmustbe.controller;
 
 import com.binar.teekmustbe.dto.ProductDto;
-import com.binar.teekmustbe.service.ProductService;
+
+import com.binar.teekmustbe.service.product.ProductService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/product")
@@ -25,7 +28,7 @@ public class ProductController {
     private ProductService productService;
 
     @Operation(summary = "Add new product")
-    @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> addProduct(ProductDto productDto, @ModelAttribute MultipartFile img) {
         productDto.setImg(img);
         productService.save(productDto);
@@ -33,9 +36,9 @@ public class ProductController {
     }
 
     @Operation(summary = "Find product by name")
-    @GetMapping("{productName}")
-    public ResponseEntity<?> findByProductName(@Valid @PathVariable("productName") String productName) {
-        var product = productService.findByName(productName);
+    @GetMapping("productName/{name}")
+    public ResponseEntity<?> findByProductName(@PathVariable("name") String name) {
+       var product = productService.findByName(name);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 

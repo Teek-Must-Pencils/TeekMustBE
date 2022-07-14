@@ -1,6 +1,7 @@
 package com.binar.teekmustbe.entitiy;
 
 import com.binar.teekmustbe.dto.ProductDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -23,13 +24,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    @Valid
-    private String productName;
     private BigDecimal price;
     private String description;
     private String seller;
     private String city;
     @Lob
+//    @JsonIgnore
     private byte[] img;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Category> category = new HashSet<>();
