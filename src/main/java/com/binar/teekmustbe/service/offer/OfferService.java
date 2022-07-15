@@ -1,12 +1,15 @@
 package com.binar.teekmustbe.service.offer;
 
 
+import com.binar.teekmustbe.dto.OfferDto;
+import com.binar.teekmustbe.entitiy.Product;
 import com.binar.teekmustbe.entitiy.User;
 
-import java.math.BigDecimal;
+
+import java.util.Set;
 
 
 public interface OfferService {
-    void save(long productId, BigDecimal priceNegotiated, User user);
+    void save(OfferDto offerDto);
 
 }

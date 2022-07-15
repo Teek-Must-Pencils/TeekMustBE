@@ -31,6 +31,18 @@ public class Offer {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Enumerated(EnumType.STRING)
-    private StatusEnum status ;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Status> status = new HashSet<>();
+
+    public Offer(OfferDto offerDto, User user, Product product, Set<Status> status) {
+        id = offerDto.getId();
+        this.user = user;
+        this.product = product;
+        this.status = status;
+        priceNegotiated = offerDto.getPriceNegotiated();
+
+    }
+    public Offer(){
+
+    }
 }

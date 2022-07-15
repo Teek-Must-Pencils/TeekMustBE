@@ -1,8 +1,6 @@
 package com.binar.teekmustbe.dto;
 
-import com.binar.teekmustbe.entitiy.Offer;
-import com.binar.teekmustbe.entitiy.Product;
-import com.binar.teekmustbe.entitiy.User;
+import com.binar.teekmustbe.entitiy.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +8,10 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Setter
@@ -22,15 +23,26 @@ public class OfferDto {
 
     private long id;
 
-    private User userId;
+    private long userId;
 
-    private Product productId;
+    private long productId;
 
-    private String priceNegotiated;
+    private BigDecimal priceNegotiated;
 
     private LocalDateTime createdAt;
 
+    private Set<String> status;
+
+
     public OfferDto() {
 
+    }
+
+    public OfferDto(Offer offer) {
+        id = offer.getId();
+        userId = offer.getUser().getId();
+        productId = offer.getProduct().getId();
+        priceNegotiated=offer.getPriceNegotiated();
+        status = offer.getStatus().stream().map(Status::getStatus).map(Enum::name).collect(Collectors.toSet());
     }
 }
