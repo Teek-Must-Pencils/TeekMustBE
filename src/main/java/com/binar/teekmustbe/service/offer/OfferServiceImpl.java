@@ -26,7 +26,7 @@ public class OfferServiceImpl implements OfferService{
     UserService userService;
 
     public void save(long productId, BigDecimal priceNegotiated, User user) {
-        var product = productService.findProductById(productId);
+        var product = productService.findById(productId);
         var offer = new Offer();
         offer.setUser(user);
         offer.setProduct(product);

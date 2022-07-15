@@ -86,10 +86,4 @@ public class ProductServiceImpl implements ProductService {
         }
         return false;
     }
-
-    public Product findProductById(long id) {
-        return productRepository.findProductById(id);
-    }
-
-
 }

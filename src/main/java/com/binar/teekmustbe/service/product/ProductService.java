@@ -20,7 +20,4 @@ public interface ProductService {
     boolean update(ProductDto productDto);
 
     Optional<Product> findById(long id);
-
-    Product findProductById(long id);
-
 }
