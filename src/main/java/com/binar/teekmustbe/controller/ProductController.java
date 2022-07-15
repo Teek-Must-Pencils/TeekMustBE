@@ -1,7 +1,9 @@
 package com.binar.teekmustbe.controller;
 
+import com.binar.teekmustbe.dto.OfferDto;
 import com.binar.teekmustbe.dto.ProductDto;
 
+import com.binar.teekmustbe.dto.UserDto;
 import com.binar.teekmustbe.service.product.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,6 +57,17 @@ public class ProductController {
         var status = productService.delete(id);
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
+
+    @Operation(summary = "find Product")
+    @GetMapping("product/{id}")
+    public ResponseEntity<?> findProductBId(@Valid @PathVariable("id") long id) {
+        var status = productService.findById(id);
+        if (status.isEmpty()) {
+            return new ResponseEntity<>("Product id" + id + " not found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(new ProductDto(status.get()), HttpStatus.OK);
+    }
+
 
     @Operation(summary = "Find by category")
     @GetMapping("{category}")
