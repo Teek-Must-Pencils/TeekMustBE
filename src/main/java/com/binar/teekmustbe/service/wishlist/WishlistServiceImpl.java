@@ -22,9 +22,9 @@ public class WishlistServiceImpl implements WishlistService {
 
     public void save(WishlistDto wishlistDto) {
 
-        var user = userService.findById(wishlistDto.getIdUser());
-        var product = productService.findById(wishlistDto.getIdProduct());
-        var wishlist = new Wishlist() ;
+        var user = userService.findById(wishlistDto.getUserId()).get();
+        var product = productService.findById(wishlistDto.getProductId()).get();
+        var wishlist = new Wishlist(wishlistDto, user, product);
         wishlistRepository.save(wishlist);
     }
 }

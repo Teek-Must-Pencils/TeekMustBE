@@ -17,18 +17,17 @@ public class Wishlist {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
     private Product product;
 
     public Wishlist() {
 
     }
 
-    public Wishlist(User user, Product product) {
+    public Wishlist(WishlistDto wishlistDto, User user, Product product) {
+        id = wishlistDto.getId();
         this.user = user;
         this.product = product;
     }

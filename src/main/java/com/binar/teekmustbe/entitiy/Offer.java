@@ -28,21 +28,25 @@ public class Offer {
 
     private BigDecimal priceNegotiated;
 
-    @CreationTimestamp
+    @CreationTimestamp  
     private LocalDateTime createdAt;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Status> status = new HashSet<>();
 
-    public Offer(OfferDto offerDto, User user, Product product, Set<Status> status) {
+    public Offer(OfferDto offerDto, User user, Product product, Status status) {
         id = offerDto.getId();
         this.user = user;
         this.product = product;
-        this.status = status;
+        this.status.add(status);
         priceNegotiated = offerDto.getPriceNegotiated();
 
     }
     public Offer(){
 
     }
+
+//    public Offer(){
+//
+//    }
 }

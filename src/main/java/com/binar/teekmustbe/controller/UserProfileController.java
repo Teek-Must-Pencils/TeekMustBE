@@ -20,7 +20,7 @@ public class UserProfileController {
     private UserService userService;
 
     @Operation(summary = "Update profile")
-    @PutMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> update(ProfileDto profileDto, @ModelAttribute MultipartFile img) {
         profileDto.setImg(img);
         if (userService.update(profileDto)){
