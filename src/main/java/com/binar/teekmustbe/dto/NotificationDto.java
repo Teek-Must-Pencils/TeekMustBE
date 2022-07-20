@@ -6,21 +6,23 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
+
 @Setter
 @Getter
 @ToString
 @EqualsAndHashCode
 @Accessors(chain = true)
 public class NotificationDto {
-    private String seller;
+    private String product;
 
-    private String buyer;
+    private BigDecimal lastPrice;
 
-    private Integer firstPrice;
-
-    private Integer lastPrice;
+    private BigDecimal firstPrice;
 
     private String status;
 
-    private String productName;
+    private String seller;
+
+    private String buyer;
 }
