@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PUT, "/api/offer/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/offer/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/wishlist/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/wishlist/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/user/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/product/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/product/**").permitAll()
