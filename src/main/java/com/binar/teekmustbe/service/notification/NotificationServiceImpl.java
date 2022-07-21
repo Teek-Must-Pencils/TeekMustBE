@@ -1,7 +1,8 @@
-package com.binar.teekmustbe.service;
+package com.binar.teekmustbe.service.notification;
 
 import com.binar.teekmustbe.dto.NotificationDto;
 import com.binar.teekmustbe.repository.OfferRepository;
+import com.binar.teekmustbe.service.notification.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class NotificationServiceImpl implements NotificationService{
+public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     OfferRepository offerRepository;

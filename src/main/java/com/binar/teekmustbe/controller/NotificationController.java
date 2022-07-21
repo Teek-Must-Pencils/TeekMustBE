@@ -1,7 +1,6 @@
 package com.binar.teekmustbe.controller;
 
-import com.binar.teekmustbe.dto.OfferDto;
-import com.binar.teekmustbe.service.NotificationService;
+import com.binar.teekmustbe.service.notification.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
