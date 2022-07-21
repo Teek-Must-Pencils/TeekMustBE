@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/wishlist")
 @SecurityRequirement(name = "Authorization")
@@ -25,5 +27,22 @@ public class WishlistController {
     public ResponseEntity<?> addProduct(WishlistDto wishlistDto) {
         wishlistService.save(wishlistDto);
         return new ResponseEntity<>("Wishlist add", HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "List Wishlist")
+    @GetMapping("/")
+    public ResponseEntity<?> listOffer() {
+        var wishlist = wishlistService.findAll();
+        return new ResponseEntity<>(wishlist, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Find Wishlist")
+    @GetMapping("wishlist/{id}")
+    public ResponseEntity<?> findWishlistById(@Valid @PathVariable("id") long id) {
+        var wishlist = wishlistService.findById(id);
+        if (wishlist.isEmpty()) {
+            return new ResponseEntity<>("Wishlist id" + id + " not found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(new WishlistDto(wishlist.get()), HttpStatus.OK);
     }
 }
