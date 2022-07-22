@@ -31,7 +31,7 @@ public class OfferDto {
 
     private LocalDateTime createdAt;
 
-    private Set<String> status;
+    private String status;
 
 
     public OfferDto() {
@@ -43,6 +43,6 @@ public class OfferDto {
         userId = offer.getUser().getId();
         productId = offer.getProduct().getId();
         priceNegotiated=offer.getPriceNegotiated();
-        status = offer.getStatus().stream().map(Status::getStatus).map(Enum::name).collect(Collectors.toSet());
+        status = offer.getStatus().getStatus().name().toLowerCase();
     }
 }

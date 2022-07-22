@@ -3,6 +3,7 @@ package com.binar.teekmustbe.service.offer;
 import com.binar.teekmustbe.dto.OfferDto;
 import com.binar.teekmustbe.dto.ProfileDto;
 import com.binar.teekmustbe.entitiy.Offer;
+import com.binar.teekmustbe.entitiy.Status;
 import com.binar.teekmustbe.entitiy.User;
 import com.binar.teekmustbe.enums.Roles;
 import com.binar.teekmustbe.enums.StatusEnum;
@@ -68,15 +69,14 @@ public class OfferServiceImpl implements OfferService {
         var offer = findById(offerDto.getId()).get();
 
         if (offerDto.getStatus().isEmpty()) {
-            offer.getStatus().add(
-                    statusService.findByStatus(StatusEnum.WAITING).orElseThrow(() ->
-                            new RuntimeException("Error: No role Buyer Found"))
+            offer.setStatus(statusService.findByStatus(StatusEnum.WAITING).orElseThrow(() ->
+                    new RuntimeException("Error: No status 'waiting' Found"))
             );
         } else {
-            offerDto.getStatus().forEach(status -> offer.getStatus().add(
-                    statusService.findByStatus(getEnumIgnoreCase(StatusEnum.class, status)).orElseThrow(() ->
-                            new RuntimeException("Error: No status '" + status + "' Found. Use `Waiting` as default."))
-            ));
+            var status = getEnumIgnoreCase(StatusEnum.class, offerDto.getStatus().toUpperCase());
+            offer.setStatus(statusService.findByStatus(status).orElseThrow(() ->
+                    new RuntimeException("Error: No status " + status + " Found"))
+            );
         }
         return update(offer);
     }

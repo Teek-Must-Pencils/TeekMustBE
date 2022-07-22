@@ -31,14 +31,14 @@ public class Offer {
     @CreationTimestamp  
     private LocalDateTime createdAt;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Status> status = new HashSet<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Status status;
 
     public Offer(OfferDto offerDto, User user, Product product, Status status) {
         id = offerDto.getId();
         this.user = user;
         this.product = product;
-        this.status.add(status);
+        this.status = status;
         priceNegotiated = offerDto.getPriceNegotiated();
 
     }
