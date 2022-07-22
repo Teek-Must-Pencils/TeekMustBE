@@ -57,12 +57,8 @@ public class ProductServiceImpl implements ProductService {
                         categoryService.findByCategory(getEnumIgnoreCase(Categories.class, category)).orElseThrow(() ->
                                 new RuntimeException("Error: No category '" + category + "' Found. Use `Pencil 2B` as default."))));
             }
-            try {
-                product.setImg(productDto.getImg() != null ?
-                        productDto.getImg().getBytes() : product.getImg());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            product.setImg(productDto.getImg() != null ?
+                    productDto.getImg() : product.getImg());
             product.setPrice(productDto.getPrice() != null ?
                     productDto.getPrice() : product.getPrice());
             product.setDescription(productDto.getDescription() != null ?

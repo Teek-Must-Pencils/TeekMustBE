@@ -27,13 +27,11 @@ public class ProductDto {
     private String name;
     private Set<String> categories = new HashSet<>();
     private BigDecimal price;
-    @JsonIgnore
-    private MultipartFile img;
     private String description;
     private String seller;
     private String buyer;
     private String city;
-    private byte[] imgB;
+    private byte[] img;
 
     public ProductDto() {
 
@@ -53,7 +51,7 @@ public class ProductDto {
             }
         }));
         city = product.getCity();
-        imgB = product.getImg();
+        img = product.getImg();
     }
 
 }

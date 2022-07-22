@@ -42,11 +42,7 @@ public class Product {
         description = productDto.getDescription();
         users.add(seller);
         city = productDto.getCity();
-        try {
-            img = productDto.getImg().getBytes();
-        } catch (IOException ioException) {
-            logger.error(ioException.getMessage());
-        }
+        img = productDto.getImg();
     }
 
     public Product() {

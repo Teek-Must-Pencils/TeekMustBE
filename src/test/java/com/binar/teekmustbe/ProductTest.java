@@ -61,13 +61,12 @@ public class ProductTest {
                 .setPrice(BigDecimal.valueOf(34234))
                 .setName("Top Pencil")
                 .setSeller("testseller")
-                .setImg(img);
-        productController.saveProduct(product, product.getImg());
+                .setImg(img.getBytes());
+        productController.saveProduct(product);
         var response = productController.findByProductName("Top Pencil");
-        assertEquals(product.setImg(null),
+        assertEquals(product,
                 ((ProductDto) ((List<?>) Objects.requireNonNull(response.getBody())).get(0))
                         .setId(0)
-                        .setImgB(null)
                         .setCategories(Set.of("pencil_2b")));
     }
 
@@ -94,8 +93,8 @@ public class ProductTest {
                 .setPrice(BigDecimal.valueOf(34234))
                 .setName("Top Pencil")
                 .setSeller("testseller")
-                .setImg(img);
-        productController.saveProduct(product, product.getImg());
+                .setImg(img.getBytes());
+        productController.saveProduct(product);
 
         var product2 = new ProductDto()
                 .setId(0)
@@ -105,13 +104,12 @@ public class ProductTest {
                 .setPrice(BigDecimal.valueOf(35432))
                 .setName("Pencil Color")
                 .setSeller("testseller")
-                .setImg(img);
-        productController.saveProduct(product2, product2.getImg());
+                .setImg(img.getBytes());
+        productController.saveProduct(product2);
         var response = productController.findByCategory("color_pencil_8");
-        assertEquals(product2.setImg(null),
+        assertEquals(product2,
                 ((ProductDto) ((List<?>) Objects.requireNonNull(response.getBody())).get(0))
                         .setId(0)
-                        .setImgB(null)
                         .setCategories(Set.of("color_pencil_8")));
     }
 }

@@ -29,10 +29,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Operation(summary = "Add new product (MULTIPART_FORM_DATA)")
+    @Operation(summary = "Add new product (JSON)")
     @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> saveProduct(ProductDto productDto, @ModelAttribute MultipartFile img) {
-        productDto.setImg(img);
+    public ResponseEntity<?> saveProduct(ProductDto productDto) {
         productService.save(productDto);
         return new ResponseEntity<>("Product add", HttpStatus.CREATED);
     }
@@ -76,10 +75,9 @@ public class ProductController {
         return new ResponseEntity<>(products.stream().map(ProductDto::new).collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @Operation(summary = "Update product (MULTIPART_FORM_DATA)")
+    @Operation(summary = "Update product (JSON)")
     @PutMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> update(ProductDto productDto, @ModelAttribute MultipartFile img) {
-        productDto.setImg(img);
+    public ResponseEntity<?> update(ProductDto productDto) {
         if (productService.update(productDto)) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
