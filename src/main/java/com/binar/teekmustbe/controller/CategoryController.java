@@ -22,7 +22,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
     @Operation(summary = "List Categories")
-    @GetMapping("products")
+    @GetMapping("")
     public ResponseEntity<Set<CategoryDto>> findAll() {
         var categories = categoryService.findAll();
         return new ResponseEntity<>(categories, HttpStatus.OK);

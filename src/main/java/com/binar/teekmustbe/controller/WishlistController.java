@@ -23,21 +23,21 @@ public class WishlistController {
     private WishlistService wishlistService;
 
     @Operation(summary = "Add new wishlist")
-    @PostMapping(value = "/")
+    @PostMapping(value = "")
     public ResponseEntity<?> addProduct(WishlistDto wishlistDto) {
         wishlistService.save(wishlistDto);
         return new ResponseEntity<>("Wishlist add", HttpStatus.CREATED);
     }
 
     @Operation(summary = "List Wishlist")
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<?> listOffer() {
         var wishlist = wishlistService.findAll();
         return new ResponseEntity<>(wishlist, HttpStatus.OK);
     }
 
     @Operation(summary = "Find Wishlist")
-    @GetMapping("wishlist/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<?> findWishlistById(@Valid @PathVariable("id") long id) {
         var wishlist = wishlistService.findById(id);
         if (wishlist.isEmpty()) {

@@ -37,7 +37,6 @@ public class UserDto {
     private String number;
     @JsonIgnore
     private MultipartFile img;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private byte[] imgB;
 
     private Set<String> roles = new HashSet<>();

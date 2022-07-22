@@ -21,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     @Operation(summary = "Find user by id")
-    @GetMapping("id/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<?> findById(@PathVariable("id") long id) {
         var user = userService.findById(id);
         if (user.isEmpty()) {
@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @Operation(summary = "Find user by username")
-    @GetMapping("user/{username}")
+    @GetMapping("username/{username}")
     public ResponseEntity<?> findByUsername(@PathVariable("username") String username) {
         var user = userService.findByUsername(username);
         if (user.isEmpty()) {
@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @Operation(summary = "List user")
-    @GetMapping("users")
+    @GetMapping("")
     public ResponseEntity<?> listUsers() {
         var users = userService.findAll();
         return new ResponseEntity<>(users.stream().map(UserDto::new).collect(Collectors.toList()), HttpStatus.OK);

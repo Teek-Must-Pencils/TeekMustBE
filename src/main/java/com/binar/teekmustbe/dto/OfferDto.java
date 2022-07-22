@@ -45,10 +45,4 @@ public class OfferDto {
         priceNegotiated=offer.getPriceNegotiated();
         status = offer.getStatus().stream().map(Status::getStatus).map(Enum::name).collect(Collectors.toSet());
     }
-
-//    public OfferDto(Offer offer) {
-//        status = offer.getStatus().stream().map(Status::getStatus).map(Enum::name).collect(Collectors.toSet());
-//    }
-
-
 }

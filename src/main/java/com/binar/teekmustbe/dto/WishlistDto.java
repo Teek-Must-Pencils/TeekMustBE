@@ -15,7 +15,9 @@ import lombok.experimental.Accessors;
 public class WishlistDto {
 
     private long id;
+
     private long userId;
+
     private long productId;
 
     public WishlistDto() {

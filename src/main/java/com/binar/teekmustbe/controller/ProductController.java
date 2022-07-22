@@ -38,28 +38,28 @@ public class ProductController {
     }
 
     @Operation(summary = "Find product by name")
-    @GetMapping("productName/{name}")
+    @GetMapping("name/{name}")
     public ResponseEntity<?> findByProductName(@PathVariable("name") String name) {
         var products = productService.findByName(name);
         return new ResponseEntity<>(products.stream().map(ProductDto::new).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @Operation(summary = "List Product")
-    @GetMapping("products")
+    @GetMapping("")
     public ResponseEntity<?> listProducts() {
         var products = productService.findAll();
         return new ResponseEntity<>(products.stream().map(ProductDto::new).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @Operation(summary = "Delete Product")
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@Valid @PathVariable("id") long id) {
         var status = productService.delete(id);
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
     @Operation(summary = "find Product")
-    @GetMapping("product/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<?> findProductBId(@Valid @PathVariable("id") long id) {
         var status = productService.findById(id);
         if (status.isEmpty()) {
@@ -70,7 +70,7 @@ public class ProductController {
 
 
     @Operation(summary = "Find by category")
-    @GetMapping("{category}")
+    @GetMapping("category/{category}")
     public ResponseEntity<?> findByCategory(@Valid @PathVariable("category") String productCategory) {
         var products = productService.findByCategory(productCategory);
         return new ResponseEntity<>(products.stream().map(ProductDto::new).collect(Collectors.toList()), HttpStatus.OK);

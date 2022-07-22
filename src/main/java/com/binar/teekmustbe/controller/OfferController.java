@@ -37,7 +37,7 @@ public class OfferController {
 
 
     @Operation(summary = "Add new offer")
-    @PostMapping(value = "/save")
+    @PostMapping("")
     public ResponseEntity<?> saveOffer(OfferDto offerDto) {
         offerService.save(offerDto);
         return new ResponseEntity<>("Offer add", HttpStatus.CREATED);
@@ -51,7 +51,7 @@ public class OfferController {
     }
 
     @Operation(summary = "Update offer")
-    @PutMapping(value = "/update")
+    @PutMapping("")
     public ResponseEntity<?> update(OfferDto offerDto) {
         if (offerService.update(offerDto)){
             return new ResponseEntity<>(HttpStatus.OK);
@@ -60,7 +60,7 @@ public class OfferController {
     }
 
     @Operation(summary = "Find Offer")
-    @GetMapping("Offer/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<?> findOfferById(@Valid @PathVariable("id") long id) {
         var offer = offerService.findById(id);
         if (offer.isEmpty()) {
