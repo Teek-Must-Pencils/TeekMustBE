@@ -30,7 +30,7 @@ public class ProductController {
     private ProductService productService;
 
     @Operation(summary = "Add new product (JSON)")
-    @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "")
     public ResponseEntity<?> saveProduct(ProductDto productDto) {
         productService.save(productDto);
         return new ResponseEntity<>("Product add", HttpStatus.CREATED);
@@ -76,7 +76,7 @@ public class ProductController {
     }
 
     @Operation(summary = "Update product (JSON)")
-    @PutMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "")
     public ResponseEntity<?> update(ProductDto productDto) {
         if (productService.update(productDto)) {
             return new ResponseEntity<>(HttpStatus.OK);
