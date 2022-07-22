@@ -26,7 +26,7 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
-    @Operation(summary = "List Notificiaton")
+    @Operation(summary = "List Notification")
     @GetMapping("/buyer")
     public ResponseEntity<?> listNotificationSeller() {
 
@@ -34,7 +34,7 @@ public class NotificationController {
         return new ResponseEntity<>(notification, HttpStatus.OK);
     }
 
-    @Operation(summary = "List Notificiaton")
+    @Operation(summary = "List Notification")
     @GetMapping("/seller")
     public ResponseEntity<?> listNotificationBuyer() {
         var notification = notificationService.notificationSeller(authentication().getName());

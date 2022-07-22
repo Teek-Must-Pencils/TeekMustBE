@@ -36,7 +36,7 @@ public class OfferController {
     private UserService userService;
 
 
-    @Operation(summary = "Add new offer")
+    @Operation(summary = "Add new offer (JSON)")
     @PostMapping("")
     public ResponseEntity<?> saveOffer(OfferDto offerDto) {
         offerService.save(offerDto);
@@ -50,8 +50,9 @@ public class OfferController {
         return new ResponseEntity<>(offer.stream().map(OfferDto::new).collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @Operation(summary = "Update offer")
+    @Operation(summary = "Update offer (JSON)")
     @PutMapping("")
+
     public ResponseEntity<?> update(OfferDto offerDto) {
         if (offerService.update(offerDto)){
             return new ResponseEntity<>(HttpStatus.OK);
@@ -59,7 +60,7 @@ public class OfferController {
         return new ResponseEntity<>("Offer Not Found", HttpStatus.NOT_FOUND);
     }
 
-    @Operation(summary = "Find Offer")
+    @Operation(summary = "Find Offer By Id")
     @GetMapping("{id}")
     public ResponseEntity<?> findOfferById(@Valid @PathVariable("id") long id) {
         var offer = offerService.findById(id);

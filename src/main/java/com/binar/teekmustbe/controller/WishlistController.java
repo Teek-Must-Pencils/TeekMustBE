@@ -22,7 +22,7 @@ public class WishlistController {
     @Autowired
     private WishlistService wishlistService;
 
-    @Operation(summary = "Add new wishlist")
+    @Operation(summary = "Add new wishlist (JSON)")
     @PostMapping(value = "")
     public ResponseEntity<?> addProduct(WishlistDto wishlistDto) {
         wishlistService.save(wishlistDto);

@@ -29,7 +29,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Operation(summary = "Add new product")
+    @Operation(summary = "Add new product (MULTIPART_FORM_DATA)")
     @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> saveProduct(ProductDto productDto, @ModelAttribute MultipartFile img) {
         productDto.setImg(img);
@@ -60,7 +60,7 @@ public class ProductController {
 
     @Operation(summary = "find Product")
     @GetMapping("{id}")
-    public ResponseEntity<?> findProductBId(@Valid @PathVariable("id") long id) {
+    public ResponseEntity<?> findProductById(@Valid @PathVariable("id") long id) {
         var status = productService.findById(id);
         if (status.isEmpty()) {
             return new ResponseEntity<>("Product id" + id + " not found", HttpStatus.NOT_FOUND);
@@ -76,7 +76,7 @@ public class ProductController {
         return new ResponseEntity<>(products.stream().map(ProductDto::new).collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @Operation(summary = "Update product")
+    @Operation(summary = "Update product (MULTIPART_FORM_DATA)")
     @PutMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> update(ProductDto productDto, @ModelAttribute MultipartFile img) {
         productDto.setImg(img);

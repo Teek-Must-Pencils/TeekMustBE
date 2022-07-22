@@ -19,7 +19,7 @@ public class UserProfileController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary = "Update profile")
+    @Operation(summary = "Update profile (MULTIPART_FORM_DATA)")
     @PutMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> update(ProfileDto profileDto, @ModelAttribute MultipartFile img) {
         profileDto.setImg(img);

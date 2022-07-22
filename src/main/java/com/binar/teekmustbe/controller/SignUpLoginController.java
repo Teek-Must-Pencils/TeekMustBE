@@ -45,7 +45,7 @@ public class SignUpLoginController {
     private JwtUtil jwtUtil;
 
 
-    @Operation(summary = "Registers a new user")
+    @Operation(summary = "Registers a new user (MULTIPART_FORM_DATA)")
     @PostMapping(value = "/signup", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> signUp(UserSignupDto userSignupDto, @ModelAttribute MultipartFile img) {
         var response = new HashMap<String, String>();
@@ -63,7 +63,7 @@ public class SignUpLoginController {
         return new ResponseEntity<>("User Registered", HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Login user")
+    @Operation(summary = "Login user (Request Body)")
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody UserLoginDto credential) {
         logger.info("logging in");
