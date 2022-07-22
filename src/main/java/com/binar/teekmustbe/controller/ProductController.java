@@ -1,9 +1,9 @@
 package com.binar.teekmustbe.controller;
 
-import com.binar.teekmustbe.dto.OfferDto;
+
 import com.binar.teekmustbe.dto.ProductDto;
 
-import com.binar.teekmustbe.dto.UserDto;
+
 import com.binar.teekmustbe.service.product.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/product")
 @SecurityRequirement(name = "Authorization")
-@CrossOrigin(origins = {"http://localhost:3000", "https://pencil-store-by-teekmust.herokuapp.com/","https://teek-must-store.vercel.app/"}, maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:3000", "https://pencil-store-by-teekmust.herokuapp.com/", "https://teek-must-store.vercel.app/"}, maxAge = 3600)
 public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     @Autowired
@@ -74,5 +74,15 @@ public class ProductController {
     public ResponseEntity<?> findByCategory(@Valid @PathVariable("category") String productCategory) {
         var products = productService.findByCategory(productCategory);
         return new ResponseEntity<>(products.stream().map(ProductDto::new).collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Update product")
+    @PutMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> update(ProductDto productDto, @ModelAttribute MultipartFile img) {
+        productDto.setImg(img);
+        if (productService.update(productDto)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Product id not found Found", HttpStatus.NOT_FOUND);
     }
 }

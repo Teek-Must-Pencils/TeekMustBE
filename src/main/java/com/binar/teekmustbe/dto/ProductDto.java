@@ -24,20 +24,14 @@ import java.util.stream.Collectors;
 @Accessors(chain = true)
 public class ProductDto {
     private long id;
-    @NotNull
     private String name;
-    @NotNull
     private Set<String> categories = new HashSet<>();
-    @NotNull
     private BigDecimal price;
     @JsonIgnore
     private MultipartFile img;
-    @NotNull
     private String description;
-    @NotNull
     private String seller;
     private String buyer;
-    @NotNull
     private String city;
     private byte[] imgB;
 

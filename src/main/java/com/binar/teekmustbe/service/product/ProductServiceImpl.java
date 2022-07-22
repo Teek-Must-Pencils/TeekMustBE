@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,8 +48,28 @@ public class ProductServiceImpl implements ProductService {
 
     public boolean update(ProductDto productDto) {
         if (productRepository.findById(productDto.getId()).isPresent()) {
-            var seller = userService.findByUsername(productDto.getSeller());
-            productRepository.save(new Product(productDto, seller.get()));
+            var product = findById(productDto.getId()).get();
+
+            product.setName(productDto.getName() != null ?
+                    productDto.getName() : product.getName());
+            if (productDto.getCategories() != null) {
+                productDto.getCategories().forEach(category -> product.getCategory().add(
+                        categoryService.findByCategory(getEnumIgnoreCase(Categories.class, category)).orElseThrow(() ->
+                                new RuntimeException("Error: No category '" + category + "' Found. Use `Pencil 2B` as default."))));
+            }
+            try {
+                product.setImg(productDto.getImg() != null ?
+                        productDto.getImg().getBytes() : product.getImg());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            product.setPrice(productDto.getPrice() != null ?
+                    productDto.getPrice() : product.getPrice());
+            product.setDescription(productDto.getDescription() != null ?
+                    productDto.getDescription() : product.getDescription());
+            product.setCity(productDto.getCity() != null ?
+                    productDto.getCity() : product.getCity());
+            productRepository.save(product);
             return true;
         }
         return false;
