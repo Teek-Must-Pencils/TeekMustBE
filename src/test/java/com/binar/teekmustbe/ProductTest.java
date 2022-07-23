@@ -62,7 +62,7 @@ public class ProductTest {
                 .setName("Top Pencil")
                 .setSeller("testseller")
                 .setImg(img.getBytes());
-        productController.saveProduct(product);
+        productController.saveProduct(product, img);
         var response = productController.findByProductName("Top Pencil");
         assertEquals(product,
                 ((ProductDto) ((List<?>) Objects.requireNonNull(response.getBody())).get(0))
@@ -94,7 +94,7 @@ public class ProductTest {
                 .setName("Top Pencil")
                 .setSeller("testseller")
                 .setImg(img.getBytes());
-        productController.saveProduct(product);
+        productController.saveProduct(product, img);
 
         var product2 = new ProductDto()
                 .setId(0)
@@ -105,7 +105,7 @@ public class ProductTest {
                 .setName("Pencil Color")
                 .setSeller("testseller")
                 .setImg(img.getBytes());
-        productController.saveProduct(product2);
+        productController.saveProduct(product2, img);
         var response = productController.findByCategory("color_pencil_8");
         assertEquals(product2,
                 ((ProductDto) ((List<?>) Objects.requireNonNull(response.getBody())).get(0))
