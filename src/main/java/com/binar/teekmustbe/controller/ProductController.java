@@ -78,9 +78,9 @@ public class ProductController {
         return new ResponseEntity<>(products.stream().map(ProductDto::new).collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @Operation(summary = "Update product (JSON)")
+    @Operation(summary = "Update product (Request Body)")
     @PutMapping(value = "")
-    public ResponseEntity<?> update(ProductDto productDto) {
+    public ResponseEntity<?> update(@RequestBody ProductDto productDto) {
         if (productService.update(productDto)) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
