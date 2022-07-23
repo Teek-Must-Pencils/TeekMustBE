@@ -9,10 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -24,9 +27,14 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Operation(summary = "Add new product (JSON)")
-    @PostMapping(value = "")
-    public ResponseEntity<?> saveProduct(ProductDto productDto) {
+    @Operation(summary = "Add new product (MULTIPART_FORM_DATA_VALUE)")
+    @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> saveProduct(ProductDto productDto, @ModelAttribute MultipartFile img) {
+        try {
+            productDto.setImg(img.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         productService.save(productDto);
         return new ResponseEntity<>("Product add", HttpStatus.CREATED);
     }
