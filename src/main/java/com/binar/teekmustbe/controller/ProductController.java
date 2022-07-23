@@ -29,9 +29,9 @@ public class ProductController {
 
     @Operation(summary = "Add new product (MULTIPART_FORM_DATA_VALUE)")
     @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> saveProduct(ProductDto productDto, @ModelAttribute MultipartFile img) {
+    public ResponseEntity<?> saveProduct(ProductDto productDto, @ModelAttribute MultipartFile imgFile) {
         try {
-            productDto.setImg(img.getBytes());
+            productDto.setImg(imgFile.getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
