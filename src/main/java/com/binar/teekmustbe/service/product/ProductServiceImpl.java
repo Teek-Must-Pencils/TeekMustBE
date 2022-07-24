@@ -49,22 +49,21 @@ public class ProductServiceImpl implements ProductService {
     public boolean update(ProductDto productDto) {
         if (productRepository.findById(productDto.getId()).isPresent()) {
             var product = findById(productDto.getId()).get();
-
-            product.setName(productDto.getName() != null ?
-                    productDto.getName() : product.getName());
+            if (productDto.getName() != null)
+                product.setName(productDto.getName());
             if (productDto.getCategories() != null) {
                 productDto.getCategories().forEach(category -> product.getCategory().add(
                         categoryService.findByCategory(getEnumIgnoreCase(Categories.class, category)).orElseThrow(() ->
                                 new RuntimeException("Error: No category '" + category + "' Found. Use `Pencil 2B` as default."))));
             }
-            product.setImg(productDto.getImg() != null ?
-                    productDto.getImg() : product.getImg());
-            product.setPrice(productDto.getPrice() != null ?
-                    productDto.getPrice() : product.getPrice());
-            product.setDescription(productDto.getDescription() != null ?
-                    productDto.getDescription() : product.getDescription());
-            product.setCity(productDto.getCity() != null ?
-                    productDto.getCity() : product.getCity());
+            if (productDto.getImg() != null)
+                product.setImg(productDto.getImg());
+            if (productDto.getPrice() != null)
+                product.setPrice(productDto.getPrice());
+            if (productDto.getDescription() != null)
+                product.setDescription(productDto.getDescription());
+            if (productDto.getCity() != null)
+                product.setCity(productDto.getCity());
             productRepository.save(product);
             return true;
         }

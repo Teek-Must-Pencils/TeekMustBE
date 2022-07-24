@@ -16,8 +16,8 @@ import javax.validation.constraints.NotNull;
 public class ProfileDto {
     @NotNull
     private long id;
-    @JsonIgnore
-    private MultipartFile img;
+
+    private byte[] img;
     @NotBlank(message = "Alamat harus diisi!")
     private String address;
     @NotBlank(message = "telpon harus diisi!")
@@ -30,7 +30,6 @@ public class ProfileDto {
         id = userDto.getId();
         address = userDto.getAddress();
         number = userDto.getNumber();
+        img = userDto.getImgB();
     }
-
-
 }

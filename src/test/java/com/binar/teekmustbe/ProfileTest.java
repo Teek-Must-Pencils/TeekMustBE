@@ -60,7 +60,8 @@ public class ProfileTest {
                 file);
         userProfileController.update(new ProfileDto((UserDto) Objects.requireNonNull(userController.findByUsername("testuser").getBody()))
                 .setAddress("tesAddress")
-                .setNumber("7654321"), file);
+                .setNumber("7654321")
+                .setImg(file.getBytes()));
         var response = userController.findByUsername("testuser");
         assertEquals("tesAddress", ((UserDto) Objects.requireNonNull(response.getBody())).getAddress());
         assertEquals("7654321", ((UserDto) Objects.requireNonNull(response.getBody())).getNumber());

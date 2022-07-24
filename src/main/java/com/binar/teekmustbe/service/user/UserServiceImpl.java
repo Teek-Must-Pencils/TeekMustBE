@@ -64,13 +64,12 @@ public class UserServiceImpl implements UserService {
     public boolean update(ProfileDto profileDto) {
         if (findById(profileDto.getId()).isPresent()) {
             var user = findById(profileDto.getId()).get();
-            try {
-                user.setAddress(profileDto.getAddress())
-                        .setNumber(profileDto.getNumber())
-                        .setImg(profileDto.getImg().getBytes());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            if (profileDto.getAddress() != null)
+                user.setAddress(profileDto.getAddress());
+            if (profileDto.getNumber() != null)
+                user.setNumber(profileDto.getNumber());
+            if (profileDto.getImg() != null)
+                user.setImg(profileDto.getImg());
             return update(user);
         }
         return false;
@@ -126,7 +125,7 @@ public class UserServiceImpl implements UserService {
         return findByEmail(email).isPresent();
     }
 
-    public User findUserByUsername (String username){
+    public User findUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
     }
 }

@@ -19,10 +19,9 @@ public class UserProfileController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary = "Update profile (MULTIPART_FORM_DATA)")
-    @PutMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> update(ProfileDto profileDto, @ModelAttribute MultipartFile img) {
-        profileDto.setImg(img);
+    @Operation(summary = "Update profile (Request Body)")
+    @PutMapping(value = "")
+    public ResponseEntity<?> update(@RequestBody ProfileDto profileDto) {
         if (userService.update(profileDto)){
             return new ResponseEntity<>(HttpStatus.OK);
         }

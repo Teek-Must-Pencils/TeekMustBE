@@ -72,10 +72,6 @@ public class User {
     public User(ProfileDto profileDto){
         address = profileDto.getAddress();
         number = profileDto.getNumber();
-        try {
-            img = profileDto.getImg().getBytes();
-        } catch (IOException ioException) {
-            logger.error(ioException.getMessage());
-        }
+        img = profileDto.getImg();
     }
 }
